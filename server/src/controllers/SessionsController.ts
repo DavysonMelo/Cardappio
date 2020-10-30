@@ -5,7 +5,6 @@ class SessionController {
     try {
       const { username, password } = request.body;
       //authentication
-
       // returns user.
       return response.json({});
     } catch (error) {
