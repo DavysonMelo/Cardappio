@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon } from 'ts-react-feather-icons';
 
 import '../styles/components/dishes.css';
 
@@ -15,7 +16,19 @@ const Dishes: React.FC<DishesProps> = (props) => {
         <p> {props.description} </p>
       </div>
 
-      <div id="dish-buttons"></div>
+      <div id="dish-buttons">
+        <div id="edit" className="button">
+          <button>
+            <Icon name="edit" size={26} color="#000" />
+          </button>
+        </div>
+
+        <div id="X" className="button">
+          <button>
+            <Icon name="x" size={26} color="#FFF" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

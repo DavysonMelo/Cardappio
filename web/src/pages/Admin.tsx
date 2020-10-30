@@ -55,7 +55,7 @@ function Admin() {
             Cardápio
             <div id="plus-button">
               <button>
-                <Icon name="plus" size={32} color="#FFFF" />
+                <Icon name="plus" size={26} color="#FFF" />
               </button>
             </div>
           </div>
@@ -72,6 +72,10 @@ function Admin() {
             <Dishes
               title="Arroz com Bife acebolado"
               description="200g de arroz, farofa, molho e bife"
+            />
+            <Dishes
+              title="Pizza de calabresa"
+              description="Tomate, queijo, calabresa"
             />
           </div>
         </div>

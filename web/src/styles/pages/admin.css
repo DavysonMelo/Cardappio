@@ -170,13 +170,7 @@
 }
 
 #dishes-container #title-plus #plus-button button {
-  height: 95%;
-  width: 100%;
-}
-
-#dishes-container #title-plus #plus-button button:hover {
-  background-color: #3dc13b;
-  border-radius: 0.32vw;
+  display: flex;
 }
 
 /* List dishes */

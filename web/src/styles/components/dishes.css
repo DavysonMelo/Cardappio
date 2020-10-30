@@ -22,5 +22,37 @@
 #dish-container #dish-buttons {
   height: 6vh;
   width: 8vw;
-  margin-right: 3%;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#dish-container #dish-buttons .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 5.2vh;
+  width: 2.5vw;
+
+  border-radius: 0.5vw;
+}
+
+#dish-container #dish-buttons #edit {
+  border: 1px solid grey;
+  background-color: #f5f4cd;
+  transition: 0.2s;
+}
+
+#dish-container #dish-buttons #X {
+  background-color: #ea5454;
+  transition: 0.2s;
+}
+
+#dish-container #dish-buttons #edit:hover {
+  background-color: #f8f68d;
+}
+
+#dish-container #dish-buttons #X:hover {
+  background-color: #c74545;
 }
