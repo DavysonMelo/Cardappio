@@ -5,10 +5,6 @@ class UserController {
     return response.json();
   }
 
-  public async create(request: Request, response: Response): Promise<Response> {
-    return response.json();
-  }
-
   public async index(request: Request, response: Response): Promise<Response> {
     return response.json();
   }
