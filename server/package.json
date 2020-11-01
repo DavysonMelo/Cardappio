@@ -7,10 +7,12 @@
     "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts"
   },
   "dependencies": {
+    "@types/mongoose-auto-increment": "^5.0.33",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.10.10",
+    "mongoose-auto-increment": "^5.0.1",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

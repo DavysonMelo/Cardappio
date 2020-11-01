@@ -68,6 +68,21 @@
     "@types/bson" "*"
     "@types/node" "*"
 
+"@types/mongoose-auto-increment@^5.0.33":
+  version "5.0.33"
+  resolved "https://registry.yarnpkg.com/@types/mongoose-auto-increment/-/mongoose-auto-increment-5.0.33.tgz#af8e6abba858a38ced76b6c9da719ae35755eebc"
+  integrity sha512-d7NKIVOUrs3fxrGc55qbIvvxg1mvm/TpCet9VCF3wlLPofznDjuM/OMga6tbo812mYYioBvLpPFN5xYgvlUB9g==
+  dependencies:
+    "@types/mongoose" "*"
+
+"@types/mongoose@*":
+  version "5.7.37"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.7.37.tgz#8aa6960a52e551ee49edbb6b0dce587bbb66762b"
+  integrity sha512-PRAZiDZvo3D1Dzs1xtFQBT8YTZIXI9MexkTWyTwIy6C/6jAEGQen2ayg4NjHhjM+5eE4isHq0vbUjzzVWu2qJQ==
+  dependencies:
+    "@types/mongodb" "*"
+    "@types/node" "*"
+
 "@types/mongoose@^5.7.36":
   version "5.7.36"
   resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.7.36.tgz#2dae28c63041c6afba8a83ea02969f463b3f1021"
@@ -703,6 +718,11 @@ express@^4.17.1:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
+extend@^3.0.0:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
+  integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
+
 fill-range@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-7.0.1.tgz#1919a6a7c75fe38b2c7c77e5198535da9acdda40"
@@ -1214,6 +1234,13 @@ mongodb@3.6.2:
     safe-buffer "^5.1.2"
   optionalDependencies:
     saslprep "^1.0.0"
+
+mongoose-auto-increment@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/mongoose-auto-increment/-/mongoose-auto-increment-5.0.1.tgz#827e051d9cc371dabe8bff1a704431d341cb79df"
+  integrity sha1-gn4FHZzDcdq+i/8acEQx00HLed8=
+  dependencies:
+    extend "^3.0.0"
 
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
