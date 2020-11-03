@@ -10,6 +10,7 @@
 #side-bar {
   background-color: #ff6161;
   background-image: url('../../assets/images/sideBarImage.png');
+  background-repeat: no-repeat;
   width: 20vw;
   height: 100vh;
 
@@ -19,15 +20,11 @@
 
 #side-bar .log-Out {
   position: absolute;
-  left: 1%;
-  top: 2.5%;
+  left: 1vw;
+  top: 3vh;
 
-  width: 2.4vw;
-  height: 5.47vh;
-}
-
-#side-bar .log-Out button {
-  height: 4.8vh;
+  width: 35px;
+  height: 35px;
 }
 
 #side-bar .log-Out button:hover {
@@ -38,8 +35,12 @@
 #side-bar #logo-Img {
   display: flex;
   justify-content: center;
-  width: 30vw;
-  height: 30vh;
+  width: 100%;
+  height: 20%;
+}
+
+#side-bar img {
+  width: 95%;
 }
 
 /* Content-Container */
@@ -65,7 +66,7 @@
 #search-categories-container #select-categories {
   background-color: #ffff;
   border-radius: 15%;
-  width: 15vw;
+  width: 30%;
 
   display: flex;
   justify-content: flex-end;
@@ -82,7 +83,7 @@
 #search-categories-container #search-dishes {
   background-color: #ffff;
   border-radius: 15%;
-  width: 27.9vw;
+  width: 60%;
 
   display: flex;
   justify-content: space-between;
@@ -104,7 +105,7 @@
 
 #search-categories-container #search-dishes #click-search-input {
   background-color: #f0f0f0;
-  width: 2.5vw;
+  width: 10%;
   border-bottom-right-radius: 0.65vw;
   border-top-right-radius: 0.65vw;
 
@@ -127,7 +128,7 @@
 #dishes-container {
   background-color: #ffff;
   height: 75%;
-  width: 65%;
+  width: 70%;
   border-radius: 0.65vw;
 
   display: flex;
@@ -143,9 +144,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-  font-weight: bold;
-  font-size: 27.6px;
 }
 
 /* Plus button */
@@ -159,8 +157,8 @@
 
   background-color: #49f145;
   border-radius: 0.32vw;
-  width: 2.37vw;
-  height: 4.93vh;
+  width: 4.5%;
+  height: 55%;
 
   transition: 0.2s;
 }
@@ -177,4 +175,10 @@
 #dishes-container #dishes-list {
   width: 96%;
   height: 85%;
+
+  min-height: 85%;
+  max-height: 85%;
+
+  resize: vertical;
+  overflow: auto;
 }
