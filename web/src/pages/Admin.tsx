@@ -8,7 +8,7 @@ import '../styles/pages/admin.css';
 import Dishes from '../components/Dishes';
 import DishModal from '../components/DishModal';
 
-import logoImg from '../assets/Logo.svg';
+import logoImg from '../assets/logoAdmin.svg';
 
 function Admin() {
   const { showAddModal, addVisible } = useContext(ModalContext);
