@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
 
 interface Iuser {
   userName: string;
-  password: string;
+  password: string | undefined;
   role: string;
 }
 
