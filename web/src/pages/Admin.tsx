@@ -50,7 +50,7 @@ function Admin() {
               </div>
 
               <div id="click-search-input">
-                <button>
+                <button type="submit">
                   <Icon name="search" size={20} color="#000" />
                 </button>
               </div>
