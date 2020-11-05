@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import '../styles/global.css';
 import '../styles/pages/login.css';
 
-import logo from '../assets/logo.svg';
+import logo from '../assets/logoLogin.svg';
 
 function Login() {
   return (
@@ -13,7 +12,7 @@ function Login() {
         <img src={logo} alt="Cardappio" />
       </div>
 
-      <div id="login">
+      <div id="login-container">
         <label id="login-label">LOGIN</label>
         <div id="login-box">
           <form action="">

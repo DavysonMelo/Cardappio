@@ -20,7 +20,7 @@
   width: 70%;
 }
 
-#login {
+#login-container {
   width: 772px;
   height: 429px;
   position: absolute;
@@ -65,31 +65,31 @@ input[type='password']::-ms-clear {
   display: none;
 }
 
-input {
+#login-box input {
   outline: none;
-  padding-left: 20px;
+  padding: 6%;
   font-size: 18px;
   border: none;
   box-sizing: border-box;
   border-radius: 10px;
 }
 
-.label {
+#login-box .label {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-input + label {
+#login-box input + label {
   margin-top: 20px;
 }
 
-.input {
+#login-box .input {
   width: 110%;
   height: 43px;
 }
 
-button {
+#login-box button {
   border-radius: 18px;
   background-color: #22c250;
 
@@ -106,7 +106,7 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
+#login-box button:hover {
   background-color: #22a146;
   opacity: 0.8;
 }
