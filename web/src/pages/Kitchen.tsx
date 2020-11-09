@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'ts-react-feather-icons';
 
+import ListContainer from '../components/ListContainer';
 import logoKitchen from '../assets/logoKitchen.svg';
 
 import '../styles/pages/kitchen.css';
@@ -32,9 +33,9 @@ function Kitchen() {
       </div>
 
       <div id="order-status-container">
-        <div className="order-container"></div>
-        <div className="order-container"></div>
-        <div className="order-container"></div>
+        <ListContainer className="order-container" />
+        <ListContainer className="order-container" />
+        <ListContainer className="order-container" />
       </div>
     </div>
   );
