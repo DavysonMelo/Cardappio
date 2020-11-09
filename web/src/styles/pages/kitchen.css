@@ -36,7 +36,7 @@
 }
 
 #status-title-container .status-title {
-  width: 456px;
+  width: 33.5%;
   height: 100%;
 
   display: flex;
@@ -52,9 +52,8 @@
 }
 
 /* Order-status container */
-
 #order-status-container {
-  height: 82.8%;
+  height: 82.5vh;
   padding: 25px 0;
 
   display: flex;
@@ -62,12 +61,7 @@
   align-items: center;
 }
 
-#order-status-container .order-container {
-  width: 30%;
-  height: 100%;
-
-  background-color: #42506a;
-  border-radius: 5.625px;
-
-  box-shadow: 4.21875px 2.8125px 6px rgba(20, 20, 20, 0.46);
+/* Order card component */
+.orderCard + .orderCard {
+  margin-top: 25px;
 }
