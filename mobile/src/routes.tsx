@@ -2,17 +2,20 @@ import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Image, TouchableOpacity } from 'react-native';
 
 const { Navigator, Screen } = createStackNavigator();
 
 import Home from './pages/Home';
+import bellImg from '../assets/images/bellImg.png';
+
 export default function Routes() {
   return (
     <NavigationContainer>
       <Navigator
         screenOptions={{
           headerShown: true,
-          cardStyle: { backgroundColor: '#f2f3f5' },
+          cardStyle: { backgroundColor: '#F2F3F5' },
         }}
       >
         <Screen
@@ -25,9 +28,16 @@ export default function Routes() {
             },
             headerTitleStyle: {
               alignSelf: 'center',
-              fontWeight: 'bold',
+              fontFamily: 'DancingScript_700Bold',
+              fontSize: 35,
               color: '#FFFFFF',
+              marginLeft: 50,
             },
+            headerRight: () => (
+              <TouchableOpacity style={{ marginRight: 6 }}>
+                <Image source={bellImg} />
+              </TouchableOpacity>
+            ),
           }}
         />
       </Navigator>

@@ -1,7 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import Routes from './src/routes';
+import { AppLoading } from 'expo';
+import {
+  useFonts,
+  DancingScript_700Bold,
+} from '@expo-google-fonts/dancing-script';
 
 export default function App() {
-  return <Routes />;
+  let [fontsLoaded] = useFonts({
+    DancingScript_700Bold,
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+  return (
+    <>
+      <Routes />
+      <StatusBar style="light" backgroundColor="#BF4B4B" />
+    </>
+  );
 }
