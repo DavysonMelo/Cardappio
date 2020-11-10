@@ -1,18 +1,22 @@
 import express from 'express';
+import multer from 'multer';
 import CategoryController from './controllers/CategoryController';
 import DishController from './controllers/DishController';
 import OrderController from './controllers/OrderController';
 import SessionController from './controllers/SessionsController';
 import UserController from './controllers/UserController';
 
+import uploadConfig from './config/upload';
+
 const routes = express.Router();
+const upload = multer(uploadConfig);
 const dishController = new DishController();
 const orderController = new OrderController();
 const userController = new UserController();
 const sessionsController = new SessionController();
 const categoryController = new CategoryController();
 
-routes.post('/dishes', dishController.create);
+routes.post('/dishes', upload.single('image'), dishController.create);
 routes.get('/dishes', dishController.index);
 routes.put('/dishes/:id', dishController.update);
 routes.delete('/dishes/:id', dishController.delete);
