@@ -1,41 +1,64 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-const DishSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
+const DishSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
 
-  image: {
-    type: String,
-    required: true,
-  },
+    image: {
+      type: String,
+      required: true,
+    },
 
-  ingredients: [
-    {
+    ingredients: [
+      {
+        type: String,
+      },
+    ],
+
+    sideDishes: [
+      {
+        type: String,
+      },
+    ],
+
+    calories: {
+      type: Number,
+    },
+
+    price: {
+      type: Number,
+    },
+
+    category: {
       type: String,
     },
-  ],
-
-  sideDishes: [
-    {
-      type: String,
+  },
+  {
+    toJSON: {
+      virtuals: true,
     },
-  ],
+  }
+);
 
-  calories: {
-    type: Number,
-  },
+interface Idish {
+  name: string;
+  image: string;
+  ingredients: [string];
+  sideDishes: [string];
+  calories: string;
+  price: Number;
+  category: string | undefined | string[];
+}
 
-  price: {
-    type: Number,
-  },
+interface IdishDoc extends Document, Idish {}
 
-  category: {
-    type: String,
-  },
+DishSchema.virtual('image_url').get(function (this: Idish) {
+  return `http://localhost:3333/uploads/${this.image}`;
 });
 
-const Dish = mongoose.model('Food', DishSchema);
+const Dish = mongoose.model<IdishDoc>('Food', DishSchema);
 
 export default Dish;
