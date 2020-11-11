@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import styles from '../styles/headerStyle';
-import bellImg from '../../assets/images/bellImg.png';
+import bellImg from '../assets/images/bellImg.png';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Header {
