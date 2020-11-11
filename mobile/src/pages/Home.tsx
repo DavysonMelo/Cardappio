@@ -13,7 +13,7 @@ import Header from '../components/Header';
 export default function Home() {
   return (
     <>
-      <Header title="Cardappio" navigateTo="OrderDetails" />
+      <Header title="Cardappio" navigateTo="OrderDetails" screen="Home" />
       <View style={{ flex: 1, backgroundColor: '#F2F3F5' }}>
         <ScrollView
           horizontal={true}

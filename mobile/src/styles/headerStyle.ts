@@ -21,8 +21,14 @@ const styles = StyleSheet.create({
 
   imageContainer: {
     position: 'absolute',
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     right: 10,
+  },
+
+  arrowContainer: {
+    position: 'absolute',
+    alignSelf: 'center',
+    left: 10,
   },
 });
 

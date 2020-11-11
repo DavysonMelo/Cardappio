@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './pages/Home';
 import DishDetails from './pages/DishDetails';
-//import OrderDetails from './pages/OrderDetails'
+import OrderDetails from './pages/OrderDetails';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -19,6 +19,7 @@ export default function Routes() {
       >
         <Screen name="Home" component={Home} />
         <Screen name="DishDetails" component={DishDetails} />
+        <Screen name="OrderDetails" component={OrderDetails} />
       </Navigator>
     </NavigationContainer>
   );

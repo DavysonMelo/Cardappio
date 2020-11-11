@@ -13,7 +13,7 @@ export default function DishDetails() {
 
   return (
     <>
-      <Header title="Detalhes" navigateTo="OrderDetails" />
+      <Header title="Detalhes" navigateTo="OrderDetails" screen="DishDetails" />
       <View>
         <View>
           <Image source={dishDetailsPhoto} />
