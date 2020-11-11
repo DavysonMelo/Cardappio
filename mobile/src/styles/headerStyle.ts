@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: '8%',
+    height: 54.5,
     backgroundColor: '#FF6161',
     marginTop: Constants.statusBarHeight,
     alignItems: 'center',
