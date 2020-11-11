@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import 'intl';
 import { IntlProvider, FormattedNumber } from 'react-intl';
@@ -26,7 +26,8 @@ export default function FoodItem({ name, description, price }: FoodItem) {
 
   return (
     <View>
-      <RectButton
+      <TouchableOpacity
+        activeOpacity={0.8}
         style={styles.foodContainer}
         onPress={() => {
           goToDishDetails();
@@ -58,7 +59,7 @@ export default function FoodItem({ name, description, price }: FoodItem) {
             </IntlProvider>
           </View>
         </View>
-      </RectButton>
+      </TouchableOpacity>
     </View>
   );
 }
