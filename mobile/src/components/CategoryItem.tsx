@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { TouchableOpacity, RectButton } from 'react-native-gesture-handler';
+import { RectButton } from 'react-native-gesture-handler';
 
 import styles from '../styles/categoryItem';
 

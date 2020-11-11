@@ -1,24 +1,37 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-
-import styles from '../styles/foodItemStyle';
-import foodImg from '../../assets/images/foodImg.png';
 import { RectButton } from 'react-native-gesture-handler';
 
 import 'intl';
 import { IntlProvider, FormattedNumber } from 'react-intl';
 import 'intl/locale-data/jsonp/pt-BR';
 
-interface FoodBox {
+import foodImg from '../assets/images/foodImg.png';
+
+import styles from '../styles/foodItemStyle';
+import { useNavigation } from '@react-navigation/native';
+
+interface FoodItem {
   name: string;
   description: string;
   price: number;
 }
 
-export default function FoodBox({ name, description, price }: FoodBox) {
+export default function FoodItem({ name, description, price }: FoodItem) {
+  const navigation = useNavigation();
+
+  function goToDishDetails() {
+    navigation.navigate('DishDetails');
+  }
+
   return (
     <View>
-      <RectButton style={styles.foodContainer}>
+      <RectButton
+        style={styles.foodContainer}
+        onPress={() => {
+          goToDishDetails();
+        }}
+      >
         <View style={styles.foodImgContainer}>
           <Image source={foodImg} style={styles.foodImg} />
         </View>
