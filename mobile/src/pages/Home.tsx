@@ -1,5 +1,11 @@
-import React from 'react';
-import { View, Text, ImageBackground } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import CategoryBox from '../components/CategoryItem';
 import FoodBox from '../components/FoodItem';
 
@@ -7,11 +13,13 @@ import imgCategory from '../../assets/images/categoryImg.png';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import styles from '../styles/homeStyle';
+import Header from '../components/Header';
 
 export default function Home() {
   return (
     <>
-      <View style={{ height: '98.5%', backgroundColor: '#F2F3F5' }}>
+      <Header title="Cardappio" navigateTo="OrderDetails" />
+      <View style={{ flex: 1, backgroundColor: '#F2F3F5' }}>
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -35,47 +43,62 @@ export default function Home() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <FoodBox
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodBox
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodBox
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodBox
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodBox
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodBox
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodBox
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodBox
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodBox
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
+            price={8}
+          />
+          <FoodBox
+            name="Água"
+            description="Água com gás, saborosa para se tomar gelada"
+            price={8}
+          />
+          <FoodBox
+            name="Água"
+            description="Água com gás, saborosa para se tomar gelada"
+            price={8}
+          />
+          <FoodBox
+            name="Água"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
         </ScrollView>
