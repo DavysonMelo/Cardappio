@@ -1,0 +1,66 @@
+#dish-container {
+  background-color: #f0f0f0;
+  border-radius: 0.65vw;
+
+  height: 23%;
+  width: 98%;
+
+  margin-bottom: 3%;
+  padding: 2%;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  line-height: 25px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+#dish-container p {
+  color: #646464;
+}
+
+#dish-container #dish-buttons {
+  height: 60%;
+  width: 18%;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#dish-container #dish-buttons .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 90%;
+  width: 30%;
+
+  border-radius: 0.5vw;
+}
+
+#dish-container #dish-buttons button {
+  display: flex;
+  align-items: center;
+}
+
+#dish-container #dish-buttons #edit {
+  border: 1px solid grey;
+  background-color: #f5f4cd;
+  transition: 0.2s;
+}
+
+#dish-container #dish-buttons #X {
+  background-color: #ea5454;
+  transition: 0.2s;
+}
+
+#dish-container #dish-buttons #edit:hover {
+  background-color: #f8f68d;
+}
+
+#dish-container #dish-buttons #X:hover {
+  background-color: #c74545;
+}
