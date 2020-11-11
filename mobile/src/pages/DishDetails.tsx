@@ -21,7 +21,7 @@ export default function DishDetails() {
 
       <ScrollView>
         <View>
-          <Image source={dishDetailsPhoto} />
+          <Image source={dishDetailsPhoto} style={{ width: '100%' }} />
         </View>
 
         <View style={styles.dishDetailsBoxContainer}>
