@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <Header title="Cardappio" navigateTo="OrderDetails" />
-      <View style={{ height: '98.5%', backgroundColor: '#F2F3F5' }}>
+      <View style={{ flex: 1, backgroundColor: '#F2F3F5' }}>
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -38,47 +38,62 @@ export default function Home() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <FoodItem
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodItem
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodItem
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodItem
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodItem
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodItem
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodItem
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodItem
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
           <FoodItem
             name="Água"
-            description="Água com gás, saborosa para um caralho"
+            description="Água com gás, saborosa para se tomar gelada"
+            price={8}
+          />
+          <FoodItem
+            name="Água"
+            description="Água com gás, saborosa para se tomar gelada"
+            price={8}
+          />
+          <FoodItem
+            name="Água"
+            description="Água com gás, saborosa para se tomar gelada"
+            price={8}
+          />
+          <FoodItem
+            name="Água"
+            description="Água com gás, saborosa para se tomar gelada"
             price={8}
           />
         </ScrollView>
