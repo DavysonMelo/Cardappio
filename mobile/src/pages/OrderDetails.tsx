@@ -49,7 +49,9 @@ export default function OrderDetails() {
               <FormattedNumber value={150} style="currency" currency="BRL" />
             </Text>
           </IntlProvider>
-          <ConfirmButton title="Finalizar pedido" />
+          <View style={{ width: '90%', alignSelf: 'center' }}>
+            <ConfirmButton title="Finalizar pedido" />
+          </View>
         </View>
         <Image source={crop} style={styles.cropContainer} />
       </ScrollView>
