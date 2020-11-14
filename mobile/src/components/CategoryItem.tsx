@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import styles from '../styles/categoryItem';
 
@@ -10,8 +10,8 @@ interface CategoryTitle {
 
 export default function BoxCategory({ name }: CategoryTitle) {
   return (
-    <RectButton style={styles.container}>
+    <TouchableOpacity style={styles.container} activeOpacity={0.6}>
       <Text>{name}</Text>
-    </RectButton>
+    </TouchableOpacity>
   );
 }
