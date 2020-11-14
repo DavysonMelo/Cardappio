@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './pages/Home';
@@ -18,7 +18,11 @@ export default function Routes() {
         }}
       >
         <Screen name="Home" component={Home} />
-        <Screen name="DishDetails" component={DishDetails} />
+        <Screen
+          name="DishDetails"
+          component={DishDetails}
+          options={{ cardStyle: { backgroundColor: '#FFF' } }}
+        />
         <Screen name="OrderDetails" component={OrderDetails} />
       </Navigator>
     </NavigationContainer>
