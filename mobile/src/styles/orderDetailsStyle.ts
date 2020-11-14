@@ -11,13 +11,22 @@ const styles = StyleSheet.create({
     marginBottom: 60,
     marginTop: 15,
     borderRadius: 5,
+
+    paddingBottom: 20,
   },
 
   cropContainer: {
     width: '95%',
     alignSelf: 'center',
     position: 'absolute',
-    bottom: 25,
+    bottom: 38,
+  },
+
+  total: {
+    alignSelf: 'center',
+    marginTop: 20,
+    fontWeight: 'bold',
+    fontSize: 22,
   },
 });
 
