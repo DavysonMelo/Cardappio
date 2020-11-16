@@ -32,11 +32,11 @@ export default function FoodConfirmation({
         </IntlProvider>
       </View>
       <View style={styles.extraDishesContainer}>
-        <ExtraDishes />
-        <ExtraDishes />
-        <ExtraDishes />
-        <ExtraDishes />
-        <ExtraDishes />
+        <ExtraDishes name="Água Mineral" />
+        <ExtraDishes name="Batata Frita M" />
+        <ExtraDishes name="Carne extra" />
+        <ExtraDishes name="Batata frita G" />
+        <ExtraDishes name="Refrigerante 500ml" />
         <View style={styles.line} />
       </View>
     </View>

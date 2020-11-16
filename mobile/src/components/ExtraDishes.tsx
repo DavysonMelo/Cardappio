@@ -7,10 +7,14 @@ import 'intl/locale-data/jsonp/pt-BR';
 
 import styles from '../styles/extraDishes';
 
-export default function ExtraDishes() {
+interface ExtraDishes {
+  name: string;
+}
+
+export default function ExtraDishes({ name }: ExtraDishes) {
   return (
     <View style={styles.extraDishes}>
-      <Text style={styles.extraDishesFont}>- Água mineral</Text>
+      <Text style={styles.extraDishesFont}>- {name}</Text>
       <IntlProvider locale="pt-BR" defaultLocale="pt-BR">
         <Text style={styles.extraDishesFontPrice}>
           +<FormattedNumber value={8} style="currency" currency="BRL" />
