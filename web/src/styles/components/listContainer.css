@@ -1,11 +1,7 @@
-import styled from 'styled-components';
-
-export const ListStyle = styled.div`
+.list-container {
   width: 30%;
   height: 100%;
   padding: 10px 0;
-
-  background-color: #42506a;
   border-radius: 5.625px;
 
   display: flex;
@@ -13,4 +9,4 @@ export const ListStyle = styled.div`
   flex-direction: column;
 
   box-shadow: 4.21875px 2.8125px 6px rgba(20, 20, 20, 0.46);
-`;
+}

@@ -1,0 +1,46 @@
+#card-container {
+  width: 92%;
+  height: max-content;
+
+  background-color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#card-content {
+  padding: 8px 18px 5px 15px;
+}
+
+#order-id-table {
+  height: 20%;
+
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#order-info-container {
+  margin-top: 10px;
+  line-height: 22px;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+#order-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.observations {
+  font-size: 12px;
+}
+
+#image-crop {
+  position: relative;
+  right: 3.5px;
+  top: 20px;
+}
