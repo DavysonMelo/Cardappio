@@ -5,7 +5,6 @@ class DishController {
   public async create(request: Request, response: Response): Promise<Response> {
     const {
       name,
-      image,
       ingredients,
       sideDishes,
       calories,
@@ -18,12 +17,14 @@ class DishController {
     try {
       dish = await Dish.findOne({ name });
 
+      const { filename } = request.file as Express.Multer.File;
+
       if (dish) {
         return response.status(400).json({ error: 'Dish already exists' });
       } else {
         dish = await Dish.create({
           name,
-          image,
+          image: filename,
           ingredients,
           sideDishes,
           calories,
