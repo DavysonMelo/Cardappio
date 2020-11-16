@@ -1,0 +1,67 @@
+#kitchen-container {
+  background-color: #2f394d;
+  width: 100vw;
+  height: 100vh;
+}
+
+#kitchen-container header {
+  height: 60px;
+  padding: 0 18px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  transition: 0.2s;
+}
+
+#kitchen-container header button {
+  display: flex;
+}
+
+#kitchen-container header button:hover {
+  background-color: #42506a;
+}
+
+/* Status title container */
+#status-title-container {
+  height: 52.67px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  color: #fff;
+  filter: drop-shadow(0px 3.51562px 2.8125px rgba(0, 0, 0, 0.28));
+}
+
+#status-title-container .status-title {
+  width: 33.5%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: -1.40625px 2.10938px 2.8125px rgba(0, 0, 0, 0.44);
+}
+
+#status-title-container .status-title span {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Order-status container */
+#order-status-container {
+  height: 82.5vh;
+  padding: 25px 0;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Order card component */
+.orderCard + .orderCard {
+  margin-top: 25px;
+}
