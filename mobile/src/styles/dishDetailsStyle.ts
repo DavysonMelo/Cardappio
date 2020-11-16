@@ -2,37 +2,31 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   dishDetailsBoxContainer: {
-    height: '57.6%',
-
     position: 'relative',
-    bottom: '10%',
+    bottom: '6%',
     alignItems: 'center',
 
     backgroundColor: '#FFF',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 4,
-    elevation: 5,
   },
   dishDetailsInfoContainer: {
-    height: '100%',
     width: '86%',
-
     paddingTop: 20,
     paddingBottom: 30,
   },
   dishTitle: {
+    width: '80%',
     fontSize: 23,
     fontWeight: 'bold',
   },
   dishDescription: {
-    width: '80%',
+    width: '90%',
     color: '#505050',
   },
   dishCalories: {
     flexDirection: 'row',
-    marginTop: 3,
+    marginTop: 6,
   },
 
   checkboxContainer: {
@@ -40,6 +34,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginTop: 10,
+  },
+
+  textInput: {
+    height: 80,
+    width: '100%',
+    backgroundColor: '#F2F2F2',
+    color: '#505050',
+    padding: 10,
+    textAlignVertical: 'top',
+  },
+
+  quantValueContainer: {
+    marginTop: 20,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  labelQuantValue: {
+    fontSize: 17,
   },
 });
 
