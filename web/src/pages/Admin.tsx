@@ -45,9 +45,7 @@ function Admin() {
             </div>
 
             <div id="search-dishes">
-              <div id="search-input">
-                <input type="text" placeholder="Pesquisa de item" />
-              </div>
+              <input type="text" placeholder="Pesquisa de item" />
 
               <div id="click-search-input">
                 <button type="submit">
