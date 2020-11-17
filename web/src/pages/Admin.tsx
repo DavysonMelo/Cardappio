@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import ModalContext from '../components/modalContext';
 
 import '../styles/global.css';
@@ -15,6 +16,7 @@ import api from '../services/api';
 
 function Admin() {
   const { showAddModal, addVisible } = useContext(ModalContext);
+  const history = useHistory();
 
   const [dishes, setDishes] = useState<DishProps[]>([] as DishProps[]);
 
@@ -37,7 +39,14 @@ function Admin() {
       <div id="page-admin">
         <aside id="side-bar">
           <div className="log-Out">
-            <button>
+            <button
+              onClick={() => {
+                let logout = window.confirm('Tem certeza que deseja sair?');
+                if (logout) {
+                  history.push('/');
+                }
+              }}
+            >
               <Icon name="log-out" size={35} color="#FFFF" />
             </button>
           </div>

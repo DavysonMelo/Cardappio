@@ -15,7 +15,6 @@
     "react-modal": "^3.11.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.4",
-    "reactjs-popup": "^2.0.4",
     "ts-react-feather-icons": "^1.0.0"
   },
   "scripts": {
