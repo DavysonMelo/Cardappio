@@ -17,12 +17,12 @@ function Login() {
         <div id="login-box">
           <form action="">
             <label className="label">Usuário</label>
-            <input className="input" type="text" />
+            <input className="input" type="text" name="user" />
 
             <label className="label">Senha</label>
-            <input className="input" type="password" />
+            <input className="input" type="password" name="password" />
 
-            <button>Entrar</button>
+            <button type="submit">Entrar</button>
           </form>
         </div>
       </div>
