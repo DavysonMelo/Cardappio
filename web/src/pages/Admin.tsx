@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { Icon } from 'ts-react-feather-icons';
+import React, { useContext, useEffect, useState } from 'react';
 import ModalContext from '../components/modalContext';
 
 import '../styles/global.css';
@@ -8,10 +7,28 @@ import '../styles/pages/admin.css';
 import Dishes from '../components/Dishes';
 import DishModal from '../components/DishModal';
 
+import { Icon } from 'ts-react-feather-icons';
 import logoImg from '../assets/logoAdmin.svg';
+
+import { DishProps } from '../types/dish';
+import api from '../services/api';
 
 function Admin() {
   const { showAddModal, addVisible } = useContext(ModalContext);
+
+  const [dishes, setDishes] = useState<DishProps[]>([] as DishProps[]);
+
+  useEffect(() => {
+    async function loadDishes() {
+      try {
+        const response = await api.get(`dishes`);
+        setDishes(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    loadDishes();
+  }, []);
 
   return (
     <>
@@ -70,36 +87,15 @@ function Admin() {
             </div>
 
             <div id="dishes-list">
-              <Dishes
-                title="Hamburguer de carne"
-                description="Acompanha alface, tomate, picles e molho especial"
-                price="R$ 22,00"
-              />
-              <Dishes
-                title="Lasanha de frango"
-                description="Requintada com bastante molho"
-                price="R$ 15,00"
-              />
-              <Dishes
-                title="Arroz com Bife acebolado"
-                description="200g de arroz, farofa, molho e bife"
-                price="R$ 30,00"
-              />
-              <Dishes
-                title="Pizza de calabresa"
-                description="Tomate, queijo, calabresa"
-                price="R$ 39,50"
-              />
-              <Dishes
-                title="Pizza de calabresa"
-                description="Tomate, queijo, calabresa"
-                price="R$ 39,50"
-              />
-              <Dishes
-                title="Pizza de calabresa"
-                description="Tomate, queijo, calabresa"
-                price="R$ 39,50"
-              />
+              {dishes.map((dish) => (
+                <Dishes
+                  key={dish.id}
+                  name={dish.name}
+                  ingredients={dish.ingredients}
+                  price={dish.price}
+                  dish={dish}
+                />
+              ))}
             </div>
           </div>
         </main>
