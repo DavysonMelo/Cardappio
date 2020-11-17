@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Icon } from 'ts-react-feather-icons';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -50,6 +51,8 @@ function Kitchen() {
     setData();
   }, []);
 
+  const history = useHistory();
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div id="kitchen-container">
@@ -58,7 +61,14 @@ function Kitchen() {
             <img src={logoKitchen} alt="Logo cardappio" />
           </div>
           <div>
-            <button>
+            <button
+              onClick={() => {
+                let logout = window.confirm('Tem certeza que deseja sair?');
+                if (logout) {
+                  history.push('/');
+                }
+              }}
+            >
               <Icon name="log-out" size={30} color="#FFF" />
             </button>
           </div>
