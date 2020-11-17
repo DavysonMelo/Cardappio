@@ -4,16 +4,19 @@ import ModalContext from './modalContext';
 
 import '../styles/components/dishModal.css';
 
+import api from '../services/api';
+
 interface DishModalProps {
   open: boolean;
   title: string;
+  id?: string;
   name?: string;
-  image?: string;
-  calories?: string;
-  sideDishes?: string;
-  price?: string;
-  category?: string;
   ingredients?: string;
+  price?: number;
+  calories?: number;
+  category?: string;
+  image_url?: string;
+  sideDishes?: string;
 }
 
 const DishModal: React.FC<DishModalProps> = (props) => {
@@ -61,7 +64,11 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                 <br />
                 <label htmlFor="image">Imagem (Url)</label>
                 <br />
-                <input defaultValue={props.image} type="text" name="image" />
+                <input
+                  defaultValue={props.image_url}
+                  type="text"
+                  name="image"
+                />
                 <br />
                 <label htmlFor="ingredients">Ingredientes</label>
                 <br />

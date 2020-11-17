@@ -6,10 +6,12 @@ import DishModal from '../components/DishModal';
 
 import '../styles/components/dishes.css';
 
+import { DishProps } from '../types/dish';
 interface DishesProps {
-  title: string;
-  description: string;
-  price: string;
+  name: string;
+  ingredients: string;
+  price: number;
+  dish: DishProps;
 }
 
 const Dishes: React.FC<DishesProps> = (props) => {
@@ -20,15 +22,19 @@ const Dishes: React.FC<DishesProps> = (props) => {
       <DishModal
         open={editVisible}
         title="Editar prato"
-        name="Lasanha de carne"
-        price={props.price}
-        image="www.blablabla.com.br/ttt"
+        name={props.dish.name}
+        ingredients={props.dish.name}
+        price={props.dish.price}
+        calories={props.dish.calories}
+        category={props.dish.category}
+        image_url={props.dish.image_url}
+        sideDishes={props.dish.sideDishes}
       />
 
       <div id="dish-container">
         <div>
-          <h3> {props.title} </h3>
-          <p> {props.description} </p>
+          <h3> {props.name} </h3>
+          <p> {props.ingredients} </p>
           {props.price}
         </div>
 
