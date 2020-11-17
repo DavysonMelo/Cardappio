@@ -54,7 +54,7 @@ function Admin() {
 
   return (
     <>
-      <DishModal open={addVisible} title="Adicionar prato" />
+      <DishModal open={addVisible} title="Adicionar prato" button="Adicionar" />
 
       <div id="page-admin">
         <aside id="side-bar">
@@ -103,7 +103,7 @@ function Admin() {
                     showAddModal();
                   }}
                 >
-                  <Icon name="plus" size={30} color="#FFF" />
+                  <Icon name="plus" size={33} color="#FFF" />
                 </button>
               </div>
             </div>

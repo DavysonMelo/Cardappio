@@ -22,8 +22,10 @@ const Dishes: React.FC<DishesProps> = (props) => {
       <DishModal
         open={editVisible}
         title="Editar prato"
+        button="Editar"
+        id={props.dish.id}
         name={props.dish.name}
-        ingredients={props.dish.name}
+        ingredients={props.dish.ingredients}
         price={props.dish.price}
         calories={props.dish.calories}
         category={props.dish.category}
