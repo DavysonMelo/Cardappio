@@ -5,6 +5,8 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import BoardContext from '../components/boardContext';
 
+import swal from 'sweetalert';
+
 import ListContainer from '../components/ListContainer';
 import logoKitchen from '../assets/logoKitchen.svg';
 
@@ -35,6 +37,7 @@ data = {
 };
 
 function Kitchen() {
+  const history = useHistory();
   const { lists, loadList } = useContext(BoardContext);
 
   useEffect(() => {
@@ -51,7 +54,23 @@ function Kitchen() {
     setData();
   }, []);
 
-  const history = useHistory();
+  function swalPopUp() {
+    swal({
+      title: 'Você está sendo deslogado',
+      text: 'Tem certeza que deseja sair?',
+      icon: 'warning',
+      timer: 10000,
+      dangerMode: true,
+      buttons: {
+        cancel: { visible: true, text: 'Cancelar' },
+        confirm: { visible: true, text: 'Sair' },
+      },
+    }).then((willConfirm) => {
+      if (willConfirm) {
+        history.push('/');
+      }
+    });
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -61,14 +80,7 @@ function Kitchen() {
             <img src={logoKitchen} alt="Logo cardappio" />
           </div>
           <div>
-            <button
-              onClick={() => {
-                let logout = window.confirm('Tem certeza que deseja sair?');
-                if (logout) {
-                  history.push('/');
-                }
-              }}
-            >
+            <button onClick={swalPopUp}>
               <Icon name="log-out" size={30} color="#FFF" />
             </button>
           </div>

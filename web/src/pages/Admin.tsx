@@ -5,6 +5,8 @@ import ModalContext from '../components/modalContext';
 import '../styles/global.css';
 import '../styles/pages/admin.css';
 
+import swal from 'sweetalert';
+
 import Dishes from '../components/Dishes';
 import DishModal from '../components/DishModal';
 
@@ -32,6 +34,24 @@ function Admin() {
     loadDishes();
   }, []);
 
+  function swalPopUp() {
+    swal({
+      title: 'Você está sendo deslogado',
+      text: 'Tem certeza que deseja sair?',
+      icon: 'warning',
+      timer: 10000,
+      dangerMode: true,
+      buttons: {
+        cancel: { visible: true, text: 'Cancelar' },
+        confirm: { visible: true, text: 'Sair' },
+      },
+    }).then((willConfirm) => {
+      if (willConfirm) {
+        history.push('/');
+      }
+    });
+  }
+
   return (
     <>
       <DishModal open={addVisible} title="Adicionar prato" />
@@ -39,14 +59,7 @@ function Admin() {
       <div id="page-admin">
         <aside id="side-bar">
           <div className="log-Out">
-            <button
-              onClick={() => {
-                let logout = window.confirm('Tem certeza que deseja sair?');
-                if (logout) {
-                  history.push('/');
-                }
-              }}
-            >
+            <button onClick={swalPopUp}>
               <Icon name="log-out" size={35} color="#FFFF" />
             </button>
           </div>
