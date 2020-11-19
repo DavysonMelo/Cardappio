@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 
 const dataDish = [
   {
-    name: 'Hambuger Do Chef',
+    name: 'Hamburger Do Chef',
     ingredients: ['2 Hamburgers 200g', 'Alface', 'Queijo cheddar', 'Pão Bola'],
     image: 'http://loremflickr.com/500/500/food',
     sideDishes: ['Salada', 'Fritas', 'Tomate', 'Bacon'],
@@ -16,7 +16,7 @@ const dataDish = [
     category: 'Hamburgers',
   },
   {
-    name: 'Mini Hambuger',
+    name: 'Mini Hamburger',
     ingredients: ['1 Hamburger 100g', 'Alface', 'Queijo prato', 'pão bola'],
     image: 'http://loremflickr.com/500/500/food',
     sideDishes: ['Salada', 'Fritas', 'Bacon', 'Tomate'],
