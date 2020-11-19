@@ -8,3 +8,9 @@ export interface DishProps {
   image_url: string;
   sideDishes: string;
 }
+
+export interface CategoryProp {
+  id: string;
+  imageUrl: string;
+  category: string;
+}
