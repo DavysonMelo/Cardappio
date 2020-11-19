@@ -13,7 +13,7 @@ import DishModal from '../components/DishModal';
 import { Icon } from 'ts-react-feather-icons';
 import logoImg from '../assets/logoAdmin.svg';
 
-import { DishProps } from '../types/dish';
+import { DishProps, CategoryProp } from '../types/dish';
 import api from '../services/api';
 
 function Admin() {
@@ -21,12 +21,17 @@ function Admin() {
   const history = useHistory();
 
   const [dishes, setDishes] = useState<DishProps[]>([] as DishProps[]);
+  const [categories, setCategories] = useState<CategoryProp[]>(
+    [] as CategoryProp[]
+  );
 
   useEffect(() => {
     async function loadDishes() {
       try {
         const response = await api.get(`dishes`);
+        const categories = await api.get('categories');
         setDishes(response.data);
+        setCategories(categories.data);
       } catch (err) {
         console.log(err);
       }
@@ -50,6 +55,10 @@ function Admin() {
         history.push('/');
       }
     });
+  }
+
+  function filterClick() {
+    api.get('/dishes-category', { headers: { categories } });
   }
 
   return (
@@ -76,10 +85,13 @@ function Admin() {
                 <option id="default-category" value="" disabled selected hidden>
                   Selecione uma categoria
                 </option>
-                <option label="Massas" value="Massas" />
-                <option label="Bebidas" value="Bebidas" />
-                <option label="Hamburguers" value="Hamburguers" />
-                <option label="Sushis" value="Sushis" />
+                {categories.map((dish) => (
+                  <option
+                    label={dish.category}
+                    value={dish.category}
+                    onClick={filterClick}
+                  />
+                ))}
               </select>
             </div>
 
@@ -110,13 +122,7 @@ function Admin() {
 
             <div id="dishes-list">
               {dishes.map((dish) => (
-                <Dishes
-                  key={dish.id}
-                  name={dish.name}
-                  ingredients={dish.ingredients}
-                  price={dish.price}
-                  dish={dish}
-                />
+                <Dishes key={dish.id} dish={dish} />
               ))}
             </div>
           </div>
