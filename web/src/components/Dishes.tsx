@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import ModalContext from '../components/modalContext';
 
 import swal from 'sweetalert';
-import DishModal from '../components/DishModal';
 
 import 'intl';
 import { IntlProvider, FormattedNumber } from 'react-intl';
@@ -20,7 +19,7 @@ interface DishesProps {
 }
 
 const Dishes: React.FC<DishesProps> = ({ dish }) => {
-  const { showEditModal, editVisible } = useContext(ModalContext);
+  const { showEditModal, setDish } = useContext(ModalContext);
   const history = useHistory();
 
   function swalDelete() {
@@ -53,19 +52,6 @@ const Dishes: React.FC<DishesProps> = ({ dish }) => {
 
   return (
     <>
-      <DishModal
-        open={editVisible}
-        title="Editar prato"
-        button="Editar"
-        id={dish.id}
-        name={dish.name}
-        ingredients={dish.ingredients}
-        price={dish.price}
-        calories={dish.calories}
-        category={dish.category}
-        image_url={dish.image_url}
-        sideDishes={dish.sideDishes}
-      />
       <div id="dish-container">
         <IntlProvider locale="pt-BR" defaultLocale="pt-BR">
           <div>
@@ -83,6 +69,7 @@ const Dishes: React.FC<DishesProps> = ({ dish }) => {
           <div id="edit" className="button">
             <button
               onClick={() => {
+                setDish(dish);
                 showEditModal();
               }}
             >
