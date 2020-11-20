@@ -7,6 +7,10 @@ import ModalContext from '../components/modalContext';
 import swal from 'sweetalert';
 import DishModal from '../components/DishModal';
 
+import 'intl';
+import { IntlProvider, FormattedNumber } from 'react-intl';
+import 'intl/locale-data/jsonp/pt-BR';
+
 import '../styles/components/dishes.css';
 
 import api from '../services/api';
@@ -63,11 +67,17 @@ const Dishes: React.FC<DishesProps> = ({ dish }) => {
         sideDishes={dish.sideDishes}
       />
       <div id="dish-container">
-        <div>
-          <h3> {dish.name} </h3>
-          <p> {dish.ingredients} </p>
-          {dish.price}
-        </div>
+        <IntlProvider locale="pt-BR" defaultLocale="pt-BR">
+          <div>
+            <h3> {dish.name} </h3>
+            <p> {dish.ingredients} </p>
+            <FormattedNumber
+              value={dish.price}
+              style="currency"
+              currency="BRL"
+            />
+          </div>
+        </IntlProvider>
 
         <div id="dish-buttons">
           <div id="edit" className="button">
