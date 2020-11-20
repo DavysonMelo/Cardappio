@@ -53,7 +53,7 @@ interface Idish {
   category: string | undefined | string[];
 }
 
-interface IdishDoc extends Document, Idish {}
+export interface IdishDoc extends Document, Idish {}
 
 DishSchema.virtual('image_url').get(function (this: Idish) {
   return `http://localhost:3333/uploads/${this.image}`;
