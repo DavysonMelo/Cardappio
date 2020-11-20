@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
-import Dish from '../models/Dish';
+import Dish, { IdishDoc } from '../models/Dish';
 
 class CategoryController {
   public async index(request: Request, response: Response): Promise<Response> {
-    let categories;
+    let categories: IdishDoc[] = [] as IdishDoc[];
+    let uniqCategories: IdishDoc[] = [] as IdishDoc[];
     try {
       categories = await Dish.find(
         {},
@@ -16,12 +17,18 @@ class CategoryController {
           calories: 0,
           price: 0,
           __v: 0,
+          image_url: 0,
+          id: 0,
         }
       );
+
+      uniqCategories = Array.from(
+        new Map(categories.map((e) => [e.category, e])).values()
+      );
     } catch (error) {
-      response.status(400).json({ error: error.message });
+      return response.status(400).json({ error: error.message });
     }
-    return response.status(200).json(categories);
+    return response.status(200).json(uniqCategories);
   }
 }
 
