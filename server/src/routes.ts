@@ -19,7 +19,7 @@ const categoryController = new CategoryController();
 routes.post('/dishes', upload.single('image'), dishController.create);
 routes.get('/dishes', dishController.index);
 routes.get('/dish-name', dishController.search);
-routes.put('/dishes/:id', dishController.update);
+routes.put('/dishes/:id', upload.single('image'), dishController.update);
 routes.delete('/dishes/:id', dishController.delete);
 routes.get('/dishes-category', dishController.show);
 
