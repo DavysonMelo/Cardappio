@@ -24,6 +24,7 @@ function Admin() {
   const [categories, setCategories] = useState<CategoryProp[]>(
     [] as CategoryProp[]
   );
+  const [searchName, setSearchName] = useState('');
 
   useEffect(() => {
     async function loadDishes() {
@@ -57,14 +58,14 @@ function Admin() {
     });
   }
 
-  async function filterClick(category: String) {
+  async function filterDishes(category: String) {
     try {
       let response;
 
       if (category === 'Todos') {
         response = await api.get(`dishes`);
       } else {
-        response = await api.get('/dishes-category', {
+        response = await api.get('dishes-category', {
           headers: { category },
         });
       }
@@ -73,6 +74,16 @@ function Admin() {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async function searchDish() {
+    if (!searchName) {
+      return setDishes(dishes);
+    }
+    const filterList = dishes.filter((dish) => {
+      dish.name.includes(searchName);
+    });
+    setDishes(filterList);
   }
 
   return (
@@ -97,7 +108,7 @@ function Admin() {
             <div id="select-categories">
               <select
                 name="categories"
-                onChange={(e) => filterClick(e.target.value)}
+                onChange={(e) => filterDishes(e.target.value)}
                 defaultValue="Selecione"
               >
                 <option id="default-category" value="Selecione" disabled hidden>
@@ -117,10 +128,14 @@ function Admin() {
             </div>
 
             <div id="search-dishes">
-              <input type="text" placeholder="Pesquisa de item" />
+              <input
+                type="text"
+                placeholder="Pesquisa de item"
+                onChange={(e) => setSearchName(e.target.value)}
+              />
 
               <div id="click-search-input">
-                <button type="submit">
+                <button type="submit" onClick={searchDish}>
                   <Icon name="search" size={20} color="#000" />
                 </button>
               </div>
