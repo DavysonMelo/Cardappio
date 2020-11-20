@@ -57,8 +57,22 @@ function Admin() {
     });
   }
 
-  function filterClick() {
-    api.get('/dishes-category', { headers: { categories } });
+  async function filterClick(category: String) {
+    try {
+      let response;
+
+      if (category === 'Todos') {
+        response = await api.get(`dishes`);
+      } else {
+        response = await api.get('/dishes-category', {
+          headers: { category },
+        });
+      }
+
+      setDishes(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -81,15 +95,22 @@ function Admin() {
         <main id="content-container">
           <div id="search-categories-container">
             <div id="select-categories">
-              <select name="categories">
-                <option id="default-category" value="" disabled selected hidden>
+              <select
+                name="categories"
+                onChange={(e) => filterClick(e.target.value)}
+                defaultValue="Selecione"
+              >
+                <option id="default-category" value="Selecione" disabled hidden>
                   Selecione uma categoria
+                </option>
+                <option label="Todos" value="Todos">
+                  Todos
                 </option>
                 {categories.map((dish) => (
                   <option
+                    key={dish.category}
                     label={dish.category}
                     value={dish.category}
-                    onClick={filterClick}
                   />
                 ))}
               </select>
