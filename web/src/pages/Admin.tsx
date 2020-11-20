@@ -17,7 +17,9 @@ import { DishProps, CategoryProp } from '../types/dish';
 import api from '../services/api';
 
 function Admin() {
-  const { showAddModal, addVisible } = useContext(ModalContext);
+  const { showAddModal, addVisible, editVisible, setDish } = useContext(
+    ModalContext
+  );
   const history = useHistory();
 
   const [dishes, setDishes] = useState<DishProps[]>([] as DishProps[]);
@@ -89,6 +91,7 @@ function Admin() {
   return (
     <>
       <DishModal open={addVisible} title="Adicionar prato" button="Adicionar" />
+      <DishModal open={editVisible} title="Editar prato" button="Editar" />
 
       <div id="page-admin">
         <aside id="side-bar">
@@ -148,6 +151,7 @@ function Admin() {
               <div id="plus-button">
                 <button
                   onClick={() => {
+                    setDish({} as DishProps);
                     showAddModal();
                   }}
                 >
