@@ -78,6 +78,7 @@
 #search-categories-container #select-categories select {
   width: 100%;
   padding-left: 10px;
+  margin-right: 5px;
   outline: none;
   border: 0;
 }
