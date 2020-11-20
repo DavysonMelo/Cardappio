@@ -3,7 +3,7 @@ import autoIncrement from 'mongoose-auto-increment';
 
 const connection = mongoose.createConnection(
   `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cardappio.vbk5u.mongodb.net/cardappio?retryWrites=true&w=majority`,
-  { useNewUrlParser: true }
+  { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
 autoIncrement.initialize(connection);
