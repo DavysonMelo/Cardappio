@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View, Text, ImageBackground } from 'react-native';
-import { CategoryInterface } from '../types/homeInterfaces';
+import { CategoryInterface, DishInterface } from '../types/homeInterfaces';
 
 import FoodItem from '../components/FoodItem';
 import CategoryBox from '../components/CategoryItem';
@@ -16,12 +16,22 @@ import api from '../services/api';
 export default function Home() {
   const [categories, setCategories] = useState([]);
   const [dishes, setDishes] = useState([]);
+  const [category, setCategory] = useState('');
 
   useEffect(() => {
     api
       .get('/categories')
       .then((resCat) => {
         setCategories(resCat.data);
+        setCategory(resCat.data[0].category);
+        api
+          .get('/dishes-category', {
+            headers: { category: resCat.data[0].category },
+          })
+          .then((resDish) => {
+            setDishes(resDish.data);
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   }, []);
@@ -43,27 +53,20 @@ export default function Home() {
         <View style={styles.categoryContainer}>
           <ImageBackground source={imgCategory} style={styles.imgBackground}>
             <View>
-              <Text style={styles.categoryName}>Categoria da comida</Text>
+              <Text style={styles.categoryName}>{category}</Text>
             </View>
           </ImageBackground>
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false}>
-          <FoodItem
-            name="Água"
-            description="Água com gás, saborosa para se tomar gelada"
-            price={8}
-          />
-          <FoodItem
-            name="Água"
-            description="Água com gás, saborosa para se tomar gelada"
-            price={8}
-          />
-          <FoodItem
-            name="Água"
-            description="Água com gás, saborosa para se tomar gelada"
-            price={8}
-          />
+          {dishes.map((dish: DishInterface) => (
+            <FoodItem
+              key={dish.id}
+              name={dish.name}
+              description={dish.ingredients}
+              price={dish.price}
+            />
+          ))}
         </ScrollView>
       </View>
     </>
