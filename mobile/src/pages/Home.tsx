@@ -20,8 +20,8 @@ export default function Home() {
 
   useEffect(() => {
     api
-      .get('/categories')
-      .then((resCat) => {
+    .get('/categories')
+    .then((resCat) => {
         setCategories(resCat.data);
         setCategory(resCat.data[0].category);
         api
@@ -36,6 +36,18 @@ export default function Home() {
       .catch((err) => console.log(err));
   }, []);
 
+  function handleCategoryChange(category: string){
+    setCategory(category)
+    api
+    .get('/dishes-category', {
+      headers: { category },
+    })
+    .then((resDish) => {
+      setDishes(resDish.data);
+    })
+    .catch((err) => console.log(err));
+  }
+
   return (
     <>
       <Header title="Cardappio" navigateTo="OrderDetails" screen="Home" />
@@ -46,7 +58,7 @@ export default function Home() {
           style={styles.list}
         >
           {categories.map((category: CategoryInterface) => (
-            <CategoryBox key={category.category} name={category.category} />
+            <CategoryBox key={category.category} name={category.category} handlePress={handleCategoryChange}/>
           ))}
         </ScrollView>
 

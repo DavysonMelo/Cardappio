@@ -6,11 +6,12 @@ import styles from '../styles/categoryItem';
 
 interface CategoryTitle {
   name: string;
+  handlePress: Function;
 }
 
-export default function BoxCategory({ name }: CategoryTitle) {
+export default function BoxCategory({ name, handlePress }: CategoryTitle) {
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.6}>
+    <TouchableOpacity style={styles.container} activeOpacity={0.6} onPress={() => handlePress(name)}>
       <Text>{name}</Text>
     </TouchableOpacity>
   );
