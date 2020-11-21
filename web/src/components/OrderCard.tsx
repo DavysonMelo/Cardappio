@@ -54,10 +54,6 @@ const OrderCard: React.FC<OrderCardProps> = (props) => {
           </div>
         </div>
       </div>
-
-      <div id="image-crop">
-        <img src={orderCropImage} alt="Card crop" />
-      </div>
     </div>
   );
 };

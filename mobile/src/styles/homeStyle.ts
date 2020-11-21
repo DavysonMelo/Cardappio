@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 
   list: {
     paddingLeft: 5,
-    minHeight: '9.5%',
+    maxHeight: '9.5%',
   },
 });
 
