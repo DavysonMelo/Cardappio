@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 const dataDish = [
   {
     name: 'Hamburger Do Chef',
-    ingredients: ['2 Hamburgers 200g', 'Alface', 'Queijo cheddar', 'Pão Bola'],
+    ingredients: "'2 Hamburgers 200g', 'Alface', 'Queijo cheddar', 'Pão Bola'",
     image: 'http://loremflickr.com/500/500/food',
     sideDishes: ['Salada', 'Fritas', 'Tomate', 'Bacon'],
     calories: '550',
@@ -17,7 +17,7 @@ const dataDish = [
   },
   {
     name: 'Mini Hamburger',
-    ingredients: ['1 Hamburger 100g', 'Alface', 'Queijo prato', 'pão bola'],
+    ingredients: "'1 Hamburger 100g', 'Alface', 'Queijo prato', 'pão bola'",
     image: 'http://loremflickr.com/500/500/food',
     sideDishes: ['Salada', 'Fritas', 'Bacon', 'Tomate'],
     calories: '250',
@@ -26,7 +26,7 @@ const dataDish = [
   },
   {
     name: 'Coca-Cola 250ml',
-    ingredients: ['Coca-cola em um copo de 250ml'],
+    ingredients: "'Coca-cola em um copo de 250ml'",
     image: 'http://loremflickr.com/500/500/food',
     sideDishes: [],
     calories: '160',
@@ -35,7 +35,7 @@ const dataDish = [
   },
   {
     name: 'Coca-Cola 500ml',
-    ingredients: ['Coca-cola em um copo de 500ml'],
+    ingredients: "'Coca-cola em um copo de 500ml'",
     image: 'http://loremflickr.com/500/500/food',
     sideDishes: [],
     calories: '340',
@@ -44,7 +44,7 @@ const dataDish = [
   },
   {
     name: 'Coca-Cola 1l',
-    ingredients: ['Coca-cola em garrafa de 1l'],
+    ingredients: "'Coca-cola em garrafa de 1l'",
     image: 'http://loremflickr.com/500/500/food',
     sideDishes: [],
     calories: '600',
@@ -53,7 +53,7 @@ const dataDish = [
   },
   {
     name: 'Salada do Chef',
-    ingredients: [
+    ingredients:""
       'Repolho',
       'Cenoura',
       'Farofa de Bacon',
@@ -75,7 +75,7 @@ const dataDish = [
   },
   {
     name: 'Mini Salada',
-    ingredients: ['25g Mix de Folhas'],
+    ingredients: "'25g Mix de Folhas'",
     image: 'http://loremflickr.com/500/500/food',
     sideDishes: ['Tomate', 'Alface', 'Frango', 'Croutons', 'Molho Balsamico'],
     calories: '25',
@@ -146,34 +146,37 @@ async function cleanDb() {
   await User.deleteMany({}, (err) => {});
   await Order.deleteMany({}, (err) => {});
 }
-cleanDb()
-  .then(async () => {
-    dataDish.map(async (dish) => {
-      console.log('creating: ', dish);
-      await Dish.create(dish);
-    });
-    dataUser.map(async (user, index) => {
-      console.log('creating: ', user);
-      await User.create(user);
-    });
-  })
-  .then(async () => {
-    await Dish.find()
-      .then(async (data) => {
-        console.log(data);
-        dataOrder[0].dishId = data[0]._id;
-        dataOrder[1].dishId = data[0]._id;
-        dataOrder[2].dishId = data[0]._id;
-        dataOrder[3].dishId = data[0]._id;
-      })
-      .then(() => {
-        dataOrder.map(async (order, index) => {
-          console.log('creating: ', order);
-          await Order.create(order);
-          if (dataOrder.length - 1 === index) {
-            console.log('DONE!');
-            mongoose.disconnect();
-          }
-        });
-      });
+cleanDb().then(async () => {
+  dataDish.map(async (dish) => {
+    console.log('creating: ', dish);
+    await Dish.create(dish);
   });
+  dataUser.map(async (user, index) => {
+    console.log('creating: ', user);
+    await User.create(user);
+    if (dataUser.length - 1 === index) {
+      console.log('DONE!');
+      mongoose.disconnect();
+    }
+  });
+});
+// .then(async () => {
+//   await Dish.find()
+//     .then(async (data) => {
+//       console.log(data);
+//       dataOrder[0].dishId = data[0]._id;
+//       dataOrder[1].dishId = data[0]._id;
+//       dataOrder[2].dishId = data[0]._id;
+//       dataOrder[3].dishId = data[0]._id;
+//     })
+//     .then(() => {
+//       dataOrder.map(async (order, index) => {
+//         console.log('creating: ', order);
+//         await Order.create(order);
+//         if (dataOrder.length - 1 === index) {
+//           console.log('DONE!');
+// mongoose.disconnect();
+//         }
+//       });
+//     });
+// });

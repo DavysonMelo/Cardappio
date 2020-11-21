@@ -15,6 +15,8 @@ class OrderController {
         status,
       });
 
+      request.io.emit('order', order);
+
       return response.json(order);
     } catch (error) {
       return response.status(400).json({ error: error.message });
