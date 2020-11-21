@@ -79,13 +79,10 @@ function Admin() {
   }
 
   async function searchDish() {
-    if (!searchName) {
-      return setDishes(dishes);
-    }
-    const filterList = dishes.filter((dish) => {
-      dish.name.includes(searchName);
+    const response = await api.get('/dish-name', {
+      headers: { name: searchName },
     });
-    setDishes(filterList);
+    setDishes(response.data);
   }
 
   return (
