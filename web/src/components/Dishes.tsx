@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Icon } from 'ts-react-feather-icons';
-import { useHistory } from 'react-router-dom';
 
 import ModalContext from '../components/modalContext';
 
@@ -20,7 +19,6 @@ interface DishesProps {
 
 const Dishes: React.FC<DishesProps> = ({ dish }) => {
   const { showEditModal, setDish } = useContext(ModalContext);
-  const history = useHistory();
 
   function swalDelete() {
     swal({
@@ -36,15 +34,14 @@ const Dishes: React.FC<DishesProps> = ({ dish }) => {
     }).then((willConfirm) => {
       if (willConfirm) {
         dishDelete();
-        history.push('/admin');
+        window.location.reload();
       }
     });
   }
 
   async function dishDelete() {
     try {
-      const response = await api.delete(`dishes/${dish.id}`);
-      console.log(response.data);
+      await api.delete(`dishes/${dish.id}`);
     } catch (err) {
       console.log(err);
     }

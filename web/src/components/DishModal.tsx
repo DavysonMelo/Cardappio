@@ -1,4 +1,10 @@
-import React, { useContext } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import Modal from 'react-modal';
 import ModalContext from './modalContext';
 
@@ -9,20 +15,90 @@ import api from '../services/api';
 interface DishModalProps {
   open: boolean;
   title: string;
-  id?: string;
-  name?: string;
-  ingredients?: string;
-  price?: number;
-  calories?: number;
-  category?: string;
-  image_url?: string;
-  sideDishes?: string;
+  button: string;
 }
 
 const DishModal: React.FC<DishModalProps> = (props) => {
-  const { closeAddModal, closeEditModal, addVisible, editVisible } = useContext(
-    ModalContext
-  );
+  const {
+    closeAddModal,
+    closeEditModal,
+    addVisible,
+    editVisible,
+    dishData,
+  } = useContext(ModalContext);
+
+  const [name, setName] = useState(dishData.name);
+  const [ingredients, setIngredients] = useState(dishData.ingredients);
+  const [price, setPrice] = useState(dishData.price);
+  const [calories, setCalories] = useState(dishData.calories);
+  const [category, setCategory] = useState(dishData.category);
+  const [image, setImage] = useState<File>();
+  const [sideDishes, setSideDishes] = useState(dishData.sideDishes);
+
+  useEffect(() => {
+    setName(dishData.name);
+    setIngredients(dishData.ingredients);
+    setPrice(dishData.price);
+    setCalories(dishData.calories);
+    setCategory(dishData.category);
+    setSideDishes(dishData.sideDishes);
+  }, [dishData]);
+
+  async function dishUpdate() {
+    const data = new FormData();
+    data.append('name', name);
+    data.append('ingredients', ingredients);
+    data.append('price', (price as unknown) as string);
+    data.append('calories', (calories as unknown) as string);
+    data.append('category', category);
+    data.append('image', image as File);
+    data.append('sideDishes', sideDishes);
+
+    try {
+      await api.put(`dishes/${dishData.id}`, data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function dishCreate() {
+    const data = new FormData();
+    data.append('name', name);
+    data.append('ingredients', ingredients);
+    data.append('price', (price as unknown) as string);
+    data.append('calories', (calories as unknown) as string);
+    data.append('category', category);
+    data.append('image', image as File);
+    data.append('sideDishes', sideDishes);
+
+    try {
+      await api.post(`dishes`, data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function getImage(e: ChangeEvent<HTMLInputElement>) {
+    if (!e.target.files) {
+      return;
+    }
+
+    const selectedImage = e.target.files;
+    setImage(selectedImage[0]);
+  }
+
+  function submit(e: FormEvent) {
+    e.preventDefault();
+
+    if (addVisible) {
+      dishCreate();
+      closeAddModal();
+    } else {
+      dishUpdate();
+      closeEditModal();
+    }
+    window.location.reload();
+  }
 
   return (
     <div>
@@ -52,27 +128,49 @@ const DishModal: React.FC<DishModalProps> = (props) => {
               <div id="first-column">
                 <label htmlFor="dishName">Nome do prato</label>
                 <br />
-                <input defaultValue={props.name} type="text" name="dishName" />
+                <input
+                  defaultValue={dishData.name}
+                  type="text"
+                  name="name"
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                />
                 <br />
                 <label htmlFor="sideDishes">Acompanhamentos</label>
                 <br />
                 <input
-                  defaultValue={props.sideDishes}
+                  defaultValue={dishData.sideDishes}
                   type="text"
                   name="sideDishes"
+                  onChange={(e) => {
+                    setSideDishes(e.target.value);
+                  }}
                 />
                 <br />
                 <label htmlFor="image">Imagem (Url)</label>
                 <br />
                 <input
-                  defaultValue={props.image_url}
-                  type="text"
+                  type="file"
                   name="image"
+                  accept="image/*"
+                  style={{
+                    backgroundColor: '#FFF',
+                  }}
+                  onChange={(e) => {
+                    getImage(e);
+                  }}
                 />
                 <br />
                 <label htmlFor="ingredients">Ingredientes</label>
                 <br />
-                <textarea defaultValue={props.ingredients} name="ingredients" />
+                <textarea
+                  defaultValue={dishData.ingredients}
+                  name="ingredients"
+                  onChange={(e) => {
+                    setIngredients(e.target.value);
+                  }}
+                />
                 <br />
               </div>
             </form>
@@ -82,34 +180,42 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                 <label htmlFor="calories">Calorias</label>
                 <br />
                 <input
-                  defaultValue={props.calories}
+                  defaultValue={dishData.calories}
                   type="text"
                   name="calories"
+                  onChange={(e) => {
+                    setCalories((e.target.value as unknown) as number);
+                  }}
                 />
                 <br />
                 <label htmlFor="category">Categoria</label>
                 <br />
                 <input
-                  defaultValue={props.category}
+                  defaultValue={dishData.category}
                   type="text"
                   name="category"
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                  }}
                 />
                 <br />
                 <label htmlFor="price">Preço</label>
                 <br />
-                <input defaultValue={props.price} type="text" name="price" />
+                <input
+                  defaultValue={dishData.price}
+                  type="text"
+                  name="price"
+                  onChange={(e) => {
+                    setPrice((e.target.value as unknown) as number);
+                  }}
+                />
                 <br />
               </div>
             </form>
           </div>
           <div id="buttons-container">
-            <button
-              id="save-button"
-              onClick={() => {
-                addVisible ? closeAddModal() : closeEditModal();
-              }}
-            >
-              Adicionar
+            <button id="save-button" type="submit" onClick={submit}>
+              {props.button}
             </button>
             <button
               id="cancel-button"
