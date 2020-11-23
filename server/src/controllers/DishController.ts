@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Dish from '../models/Dish';
+import parseStringAsArray from '../utils/parseStringAsArray';
 
 class DishController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -11,6 +12,9 @@ class DishController {
       price,
       category,
     } = request.body;
+
+    const ingredientsArray = parseStringAsArray(ingredients);
+    const sideDishesArray = parseStringAsArray(sideDishes);
 
     let dish;
 
@@ -25,8 +29,8 @@ class DishController {
         dish = await Dish.create({
           name,
           image: filename,
-          ingredients,
-          sideDishes,
+          ingredients: ingredientsArray,
+          sideDishes: sideDishesArray,
           calories,
           price,
           category,
