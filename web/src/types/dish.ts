@@ -5,7 +5,8 @@ export interface DishProps {
   price: number;
   calories: number;
   category: string;
-  image_url: string;
+  image: string;
+  image_url?: string;
   sideDishes: string;
 }
 

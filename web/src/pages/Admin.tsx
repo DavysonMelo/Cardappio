@@ -17,13 +17,16 @@ import { DishProps, CategoryProp } from '../types/dish';
 import api from '../services/api';
 
 function Admin() {
-  const { showAddModal, addVisible } = useContext(ModalContext);
+  const { showAddModal, addVisible, editVisible, setDish } = useContext(
+    ModalContext
+  );
   const history = useHistory();
 
   const [dishes, setDishes] = useState<DishProps[]>([] as DishProps[]);
   const [categories, setCategories] = useState<CategoryProp[]>(
     [] as CategoryProp[]
   );
+  const [searchName, setSearchName] = useState('');
 
   useEffect(() => {
     async function loadDishes() {
@@ -57,13 +60,35 @@ function Admin() {
     });
   }
 
-  function filterClick() {
-    api.get('/dishes-category', { headers: { categories } });
+  async function filterDishes(category: String) {
+    try {
+      let response;
+
+      if (category === 'Todos') {
+        response = await api.get(`dishes`);
+      } else {
+        response = await api.get('dishes-category', {
+          headers: { category },
+        });
+      }
+
+      setDishes(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function searchDish() {
+    const response = await api.get('/dish-name', {
+      headers: { name: searchName },
+    });
+    setDishes(response.data);
   }
 
   return (
     <>
       <DishModal open={addVisible} title="Adicionar prato" button="Adicionar" />
+      <DishModal open={editVisible} title="Editar prato" button="Editar" />
 
       <div id="page-admin">
         <aside id="side-bar">
@@ -81,25 +106,36 @@ function Admin() {
         <main id="content-container">
           <div id="search-categories-container">
             <div id="select-categories">
-              <select name="categories">
-                <option id="default-category" value="" disabled selected hidden>
+              <select
+                name="categories"
+                onChange={(e) => filterDishes(e.target.value)}
+                defaultValue="Selecione"
+              >
+                <option id="default-category" value="Selecione" disabled hidden>
                   Selecione uma categoria
+                </option>
+                <option label="Todos" value="Todos">
+                  Todos
                 </option>
                 {categories.map((dish) => (
                   <option
+                    key={dish.category}
                     label={dish.category}
                     value={dish.category}
-                    onClick={filterClick}
                   />
                 ))}
               </select>
             </div>
 
             <div id="search-dishes">
-              <input type="text" placeholder="Pesquisa de item" />
+              <input
+                type="text"
+                placeholder="Pesquisa de item"
+                onChange={(e) => setSearchName(e.target.value)}
+              />
 
               <div id="click-search-input">
-                <button type="submit">
+                <button type="submit" onClick={searchDish}>
                   <Icon name="search" size={20} color="#000" />
                 </button>
               </div>
@@ -112,6 +148,7 @@ function Admin() {
               <div id="plus-button">
                 <button
                   onClick={() => {
+                    setDish({} as DishProps);
                     showAddModal();
                   }}
                 >
