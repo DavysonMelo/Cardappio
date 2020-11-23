@@ -123,6 +123,17 @@ class DishController {
     return response.status(200).json({ message: 'Dish deleted!' });
   }
 
+  public async findId(request: Request, response: Response): Promise<Response> {
+    const { id } = request.headers;
+    let dishes;
+    try {
+      dishes = await Dish.findById(id);
+    } catch (error) {
+      response.status(400).json({ error: error.message });
+    }
+    return response.status(200).json(dishes);
+  }
+
   public async search(request: Request, response: Response): Promise<Response> {
     const { name } = request.headers;
     const nameReg = new RegExp(name as string, 'i');
