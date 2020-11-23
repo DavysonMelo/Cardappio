@@ -1,5 +1,7 @@
-function parseStringAsArray(arrayAsString: String) {
-  return arrayAsString.split(',').map((tech) => tech.trim());
+export function parseStringAsArray(arrayAsString: String) {
+  return arrayAsString.split(',').map((item) => item.trim());
 }
 
-export default parseStringAsArray;
+export function parseObsAsArray(arrayAsString: String) {
+  return arrayAsString.split(';').map((item) => item.trim());
+}

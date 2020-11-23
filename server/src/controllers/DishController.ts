@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import Dish from '../models/Dish';
-import parseStringAsArray from '../utils/parseStringAsArray';
+import { parseStringAsArray } from '../utils/parseStringAsArray';
 
 class DishController {
   public async create(request: Request, response: Response): Promise<Response> {

@@ -13,20 +13,26 @@ const OrderSchema = new mongoose.Schema({
     type: Number,
   },
 
-  dishId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Food',
-  },
-
-  tableNumber: [
+  dishId: [
     {
-      type: Number,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: 'Food',
     },
   ],
 
+  tableNumber: {
+    type: Number,
+    required: true,
+  },
+
   observations: [
+    {
+      type: String,
+    },
+  ],
+
+  additional: [
     {
       type: String,
     },
