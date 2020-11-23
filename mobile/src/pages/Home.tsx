@@ -20,8 +20,8 @@ export default function Home() {
 
   useEffect(() => {
     api
-    .get('/categories')
-    .then((resCat) => {
+      .get('/categories')
+      .then((resCat) => {
         setCategories(resCat.data);
         setCategory(resCat.data[0].category);
         api
@@ -36,16 +36,16 @@ export default function Home() {
       .catch((err) => console.log(err));
   }, []);
 
-  function handleCategoryChange(category: string){
-    setCategory(category)
+  function handleCategoryChange(category: string) {
+    setCategory(category);
     api
-    .get('/dishes-category', {
-      headers: { category },
-    })
-    .then((resDish) => {
-      setDishes(resDish.data);
-    })
-    .catch((err) => console.log(err));
+      .get('/dishes-category', {
+        headers: { category },
+      })
+      .then((resDish) => {
+        setDishes(resDish.data);
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -58,7 +58,11 @@ export default function Home() {
           style={styles.list}
         >
           {categories.map((category: CategoryInterface) => (
-            <CategoryBox key={category.category} name={category.category} handlePress={handleCategoryChange}/>
+            <CategoryBox
+              key={category.category}
+              name={category.category}
+              handlePress={handleCategoryChange}
+            />
           ))}
         </ScrollView>
 
@@ -74,6 +78,7 @@ export default function Home() {
           {dishes.map((dish: DishInterface) => (
             <FoodItem
               key={dish.id}
+              id={dish.id}
               name={dish.name}
               description={dish.ingredients}
               price={dish.price}

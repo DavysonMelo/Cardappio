@@ -12,16 +12,17 @@ import styles from '../styles/foodItemStyle';
 import { useNavigation } from '@react-navigation/native';
 
 interface FoodItem {
+  id: string;
   name: string;
   description: string;
   price: number;
 }
 
-export default function FoodItem({ name, description, price }: FoodItem) {
+export default function FoodItem({ id, name, description, price }: FoodItem) {
   const navigation = useNavigation();
 
   function goToDishDetails() {
-    navigation.navigate('DishDetails');
+    navigation.navigate('DishDetails', { id });
   }
 
   return (
