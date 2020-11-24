@@ -8,6 +8,8 @@ import React, {
 import Modal from 'react-modal';
 import ModalContext from './modalContext';
 
+import swal from 'sweetalert';
+
 import '../styles/components/dishModal.css';
 
 import api from '../services/api';
@@ -56,7 +58,34 @@ const DishModal: React.FC<DishModalProps> = (props) => {
 
     try {
       await api.put(`dishes/${dishData.id}`, data);
+      swal({
+        title: 'Informações atualizadas com sucesso',
+        icon: 'success',
+        buttons: {
+          cancel: { visible: false },
+          confirm: { visible: true, text: 'Ok' },
+        },
+      }).then((willConfirm) => {
+        if (willConfirm) {
+          window.location.reload();
+        }
+      });
     } catch (err) {
+      swal({
+        title: 'Não foi possível atualizar as informações do prato',
+        text: 'Verifique os dados e tente novamente',
+        icon: 'warning',
+        timer: 10000,
+        dangerMode: true,
+        buttons: {
+          cancel: { visible: false },
+          confirm: { visible: true, text: 'Ok' },
+        },
+      }).then((willConfirm) => {
+        if (willConfirm) {
+          window.location.reload();
+        }
+      });
       console.log(err);
     }
   }
@@ -73,7 +102,35 @@ const DishModal: React.FC<DishModalProps> = (props) => {
 
     try {
       await api.post(`dishes`, data);
+      swal({
+        title: 'Prato criado com sucesso',
+        icon: 'success',
+        buttons: {
+          cancel: { visible: false },
+          confirm: { visible: true, text: 'Ok' },
+        },
+      }).then((willConfirm) => {
+        if (willConfirm) {
+          window.location.reload();
+        }
+      });
     } catch (err) {
+      swal({
+        title: 'Não foi possível criar o prato',
+        text: 'Verifique os dados e tente novamente',
+        icon: 'warning',
+        timer: 10000,
+        dangerMode: true,
+        buttons: {
+          cancel: { visible: false },
+          confirm: { visible: true, text: 'Ok' },
+        },
+      }).then((willConfirm) => {
+        if (willConfirm) {
+          window.location.reload();
+        }
+      });
+
       console.log(err);
     }
   }
@@ -87,17 +144,46 @@ const DishModal: React.FC<DishModalProps> = (props) => {
     setImage(selectedImage[0]);
   }
 
+  function formValidation() {
+    if (name === undefined || name === '' || !!+name === true) {
+      alert('O campo do nome deve ser preenchido e no formato de texto');
+    }
+    if (calories === undefined) {
+      console.log(calories);
+      alert('O campo de calorias deve estar preenchido e no formato numérico');
+    }
+    if (category === undefined || category === '' || !!+category === true) {
+      alert('O campo de categoria deve estar preenchido e no formato de texto');
+    }
+    if (
+      ingredients === undefined ||
+      ingredients === '' ||
+      !!+ingredients === true
+    ) {
+      alert(
+        'O campo de ingredientes deve estar preenchido e no formato de texto'
+      );
+    }
+    if (price === undefined) {
+      alert('O campo de preço deve estar preenchido e no formato númerico');
+    } else {
+      if (addVisible) {
+        if (image === undefined) {
+          alert('Uma imagem deve ser anexada ao prato ');
+        } else {
+          dishCreate();
+          closeAddModal();
+        }
+      } else {
+        dishUpdate();
+        closeEditModal();
+      }
+    }
+  }
+
   function submit(e: FormEvent) {
     e.preventDefault();
-
-    if (addVisible) {
-      dishCreate();
-      closeAddModal();
-    } else {
-      dishUpdate();
-      closeEditModal();
-    }
-    window.location.reload();
+    formValidation();
   }
 
   return (
@@ -132,7 +218,6 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   defaultValue={dishData.name}
                   type="text"
                   name="name"
-                  required
                   onChange={(e) => {
                     setName(e.target.value);
                   }}
@@ -144,7 +229,6 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   defaultValue={dishData.sideDishes}
                   type="text"
                   name="sideDishes"
-                  required
                   onChange={(e) => {
                     setSideDishes(e.target.value);
                   }}
@@ -156,7 +240,6 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   type="file"
                   name="image"
                   accept="image/*"
-                  required
                   style={{
                     backgroundColor: '#FFF',
                   }}
@@ -170,7 +253,6 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                 <textarea
                   defaultValue={dishData.ingredients}
                   name="ingredients"
-                  required
                   onChange={(e) => {
                     setIngredients(e.target.value);
                   }}
@@ -186,10 +268,13 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                 <input
                   defaultValue={dishData.calories}
                   type="number"
-                  pattern="/\d+/"
                   name="calories"
-                  required
+                  min="0"
                   onChange={(e) => {
+                    let caloriesInput = (e.target.value as unknown) as number;
+                    if (caloriesInput < 0) {
+                      e.target.value = '0';
+                    }
                     setCalories((e.target.value as unknown) as number);
                   }}
                 />
@@ -200,7 +285,6 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   defaultValue={dishData.category}
                   type="text"
                   name="category"
-                  required
                   onChange={(e) => {
                     setCategory(e.target.value);
                   }}
@@ -211,11 +295,14 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                 <input
                   defaultValue={dishData.price}
                   type="number"
-                  pattern="/\d+/"
                   name="price"
-                  required
+                  min="0"
                   onChange={(e) => {
-                    setPrice((e.target.value as unknown) as number);
+                    let priceInput = parseFloat(e.target.value);
+                    if (priceInput < 0) {
+                      e.target.value = '0';
+                    }
+                    setPrice(parseFloat(e.target.value));
                   }}
                 />
                 <br />
