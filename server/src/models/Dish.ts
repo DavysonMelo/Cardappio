@@ -59,6 +59,6 @@ DishSchema.virtual('image_url').get(function (this: Idish) {
   return `http://localhost:3333/uploads/${this.image}`;
 });
 
-const Dish = mongoose.model<IdishDoc>('Food', DishSchema);
+const Dish = mongoose.model<IdishDoc>('Dish', DishSchema);
 
 export default Dish;
