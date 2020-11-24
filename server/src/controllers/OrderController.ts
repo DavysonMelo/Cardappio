@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import Order from '../models/Order';
-import Dish, { IdishDoc } from '../models/Dish';
 import {
   parseStringAsArray,
   parseObsAsArray,
@@ -9,55 +8,47 @@ import {
 class OrderController {
   public async create(request: Request, response: Response): Promise<Response> {
     const {
-      dishId,
+      dishName,
       tableNumber,
       observations,
       additional,
       status,
     } = request.body;
 
-    const dishIdArray = parseStringAsArray(dishId);
+    const dishNameArray = parseStringAsArray(dishName);
     const observationsArray = parseObsAsArray(observations);
     const additionalArray = parseStringAsArray(additional);
-
-    let dishes = [] as IdishDoc[];
 
     let order;
 
     try {
-      dishIdArray.map(async (dId) => {
-        const dish = await Dish.findById(dId);
-        if (dish) {
-          dishes.push(dish as IdishDoc);
-        } else {
-          return response.status(400).json({ error: 'Dish not found' });
-        }
-      });
-
       order = await Order.create({
-        dishId: dishIdArray,
+        dishName: dishNameArray,
         tableNumber,
         observations: observationsArray,
         additional: additionalArray,
         status,
       });
 
-      request.io.emit('order', { order, dishes });
+      request.io.emit('order', order);
 
-      return response.json({ order, dishes });
+      return response.json(order);
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }
   }
 
   public async index(request: Request, response: Response): Promise<Response> {
+    const { status } = request.headers;
+    let stts: String;
+    stts = status as String;
     let orders;
     try {
-      orders = await Order.find();
+      orders = await Order.find({ status: stts });
+      return response.json(orders);
     } catch (error) {
-      response.status(400).json({ error: error.message });
+      return response.status(400).json({ error: error.message });
     }
-    return response.json(orders);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
@@ -74,9 +65,30 @@ class OrderController {
         order = await Order.findByIdAndDelete(id);
       }
     } catch (error) {
-      response.status(400).json({ error: error.message });
+      return response.status(400).json({ error: error.message });
     }
     return response.status(200).json({ message: 'Order Delivered!' });
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const { status } = request.body;
+
+    try {
+      let order;
+
+      order = await Order.findByIdAndUpdate(
+        id,
+        {
+          status,
+        },
+        { new: true }
+      );
+
+      return response.json(order);
+    } catch (error) {
+      return response.status(400).json({ error: error.message });
+    }
   }
 }
 

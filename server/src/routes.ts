@@ -26,6 +26,7 @@ routes.get('/dishes-category', dishController.show);
 routes.post('/orders', orderController.create);
 routes.get('/orders', orderController.index);
 routes.delete('/orders/:id', orderController.delete);
+routes.put('/orders/:id', orderController.update);
 
 routes.post('/users', userController.create);
 routes.get('/users', userController.index);
