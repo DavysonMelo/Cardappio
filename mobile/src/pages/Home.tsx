@@ -82,6 +82,8 @@ export default function Home() {
               name={dish.name}
               description={dish.ingredients}
               price={dish.price}
+              image_url={dish.image_url}
+              image={dish.image}
             />
           ))}
         </ScrollView>

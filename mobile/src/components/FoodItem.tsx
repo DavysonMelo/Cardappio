@@ -14,11 +14,20 @@ import { useNavigation } from '@react-navigation/native';
 interface FoodItem {
   id: string;
   name: string;
-  description: string;
+  description: string[];
   price: number;
+  image_url: string;
+  image: string;
 }
 
-export default function FoodItem({ id, name, description, price }: FoodItem) {
+export default function FoodItem({
+  id,
+  name,
+  description,
+  price,
+  image_url,
+  image,
+}: FoodItem) {
   const navigation = useNavigation();
 
   function goToDishDetails() {
@@ -35,7 +44,14 @@ export default function FoodItem({ id, name, description, price }: FoodItem) {
         }}
       >
         <View style={styles.foodImgContainer}>
-          <Image source={foodImg} style={styles.foodImg} />
+          <Image
+            source={
+              image.includes('https//') || image.includes('http://')
+                ? { uri: image }
+                : { uri: image_url }
+            }
+            style={styles.foodImg}
+          />
         </View>
 
         <View style={styles.containerTitleDesc}>
@@ -44,7 +60,7 @@ export default function FoodItem({ id, name, description, price }: FoodItem) {
           <View style={styles.infoContainer}>
             <View style={styles.descriptionContainer}>
               <Text style={styles.descriptionFont} numberOfLines={4}>
-                {description}
+                {description.join(', ')}
               </Text>
             </View>
             <IntlProvider locale="pt-BR" defaultLocale="pt-BR">
