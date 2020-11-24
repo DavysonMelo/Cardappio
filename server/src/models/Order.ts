@@ -49,7 +49,7 @@ interface IOrder {
   tableNumber: number;
   observations: string[];
   additional: string[];
-  status: String;
+  status: string | undefined | string[];
 }
 
 export interface IOrderDoc extends IOrder, Document {}
