@@ -14,6 +14,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ConfirmButton from '../components/ConfirmButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../services/api';
+import { DishInterface } from '../types/homeInterfaces';
 
 interface ParamsProp {
   id?: string;
@@ -27,9 +28,13 @@ export default function DishDetails() {
   const [dish, setDish] = useState({
     id: '',
     name: '',
-    ingredients: '',
+    ingredients: [''],
     price: 0,
-    calories: '',
+    category: '',
+    calories: 0,
+    sideDishes: [''],
+    image: '',
+    image_url: '',
   });
   const { id } = route.params as ParamsProp;
 
@@ -39,21 +44,34 @@ export default function DishDetails() {
     });
   }, []);
 
-  console.log(dish);
+  function handleSubmit() {}
+
   return (
     <>
       <Header title="Detalhes" navigateTo="OrderDetails" screen="DishDetails" />
 
       <ScrollView>
         <View>
-          <Image source={dishDetailsPhoto} style={{ width: '100%' }} />
+          <Image
+            source={
+              dish.image
+                ? dish.image.includes('https//') ||
+                  dish.image.includes('http://')
+                  ? { uri: dish.image }
+                  : { uri: dish.image_url }
+                : dishDetailsPhoto
+            }
+            style={{ width: '100%', height: 500, resizeMode: 'cover' }}
+          />
         </View>
 
         <View style={styles.dishDetailsBoxContainer}>
           <View style={styles.dishDetailsInfoContainer}>
             <View>
               <Text style={styles.dishTitle}>{dish?.name}</Text>
-              <Text style={styles.dishDescription}>{dish?.ingredients}</Text>
+              <Text style={styles.dishDescription}>
+                {dish?.ingredients.join(', ')}
+              </Text>
               <View style={styles.dishCalories}>
                 <Text style={{ fontWeight: 'bold' }}>Calorias:</Text>
                 <Text style={{ color: '#505050' }}> {dish?.calories}</Text>
@@ -61,16 +79,9 @@ export default function DishDetails() {
             </View>
 
             <View style={styles.checkboxContainer}>
-              <View>
-                <CheckBoxItem sideDish="Cebola" />
-                <CheckBoxItem sideDish="Picles" />
-                <CheckBoxItem sideDish="Coca-cola" />
-              </View>
-              <View>
-                <CheckBoxItem sideDish="BBQ" />
-                <CheckBoxItem sideDish="Bacon" />
-                <CheckBoxItem sideDish="Mostarda" />
-              </View>
+              {dish?.sideDishes.map((side) => (
+                <CheckBoxItem key={side} sideDish={side} />
+              ))}
             </View>
 
             <View>
@@ -109,7 +120,7 @@ export default function DishDetails() {
               </View>
             </View>
 
-            <ConfirmButton title="Adicionar item" />
+            <ConfirmButton handlePress={handleSubmit} title="Adicionar item" />
           </View>
         </View>
       </ScrollView>
