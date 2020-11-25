@@ -1,40 +1,27 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-class Cart {
-  private static instance: Cart;
-
-  constructor() {
-    if (!Cart.instance) {
-      this.begin();
-      return (Cart.instance = new Cart());
+export const cartPushData = async (value: any) => {
+  try {
+    const data = await AsyncStorage.getItem('cart');
+    if (!data) {
+      await AsyncStorage.setItem('cart', JSON.stringify([]));
     }
-    Cart.instance = this;
-
-    return this;
+    const parsed = JSON.parse(data as string);
+    await AsyncStorage.setItem('cart', JSON.stringify([...parsed, value]));
+  } catch (error) {
+    console.log(error);
   }
+};
 
-  begin = async () => {
-    await AsyncStorage.setItem('cart', JSON.stringify([]));
-  };
-
-  StoreData = async (value: any) => {
-    try {
-      await AsyncStorage.setItem('cart', JSON.stringify(value));
-    } catch (error) {
-      console.log(error);
+export const getCart = async () => {
+  try {
+    const data = await AsyncStorage.getItem('cart');
+    if (!data) {
+      await AsyncStorage.setItem('cart', JSON.stringify([]));
     }
-  };
-
-  GetCart = async () => {
-    try {
-      const data = await AsyncStorage.getItem('cart');
-      const parsed = JSON.parse(data as string);
-
-      return parsed;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
-
-export default Cart;
+    const parsed = JSON.parse(data as string);
+    return parsed;
+  } catch (error) {
+    console.log(error);
+  }
+};

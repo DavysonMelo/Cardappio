@@ -15,6 +15,7 @@ import ConfirmButton from '../components/ConfirmButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../services/api';
 import { DishInterface } from '../types/homeInterfaces';
+import { getCart, cartPushData } from '../services/Cart';
 
 interface ParamsProp {
   id?: string;
@@ -25,6 +26,7 @@ export default function DishDetails() {
   const [qtyBtnValue, setQtyBtnValue] = useState(1);
   const navigation = useNavigation();
   const route = useRoute();
+
   const [dish, setDish] = useState({
     id: '',
     name: '',
@@ -36,6 +38,7 @@ export default function DishDetails() {
     image: '',
     image_url: '',
   });
+
   const { id } = route.params as ParamsProp;
 
   useEffect(() => {
@@ -44,7 +47,9 @@ export default function DishDetails() {
     });
   }, []);
 
-  function handleSubmit() {}
+  async function handleSubmit() {
+    console.log(await getCart());
+  }
 
   return (
     <>
