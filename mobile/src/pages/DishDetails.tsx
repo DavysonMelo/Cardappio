@@ -15,7 +15,7 @@ import ConfirmButton from '../components/ConfirmButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../services/api';
 import { DishInterface } from '../types/homeInterfaces';
-import { cartPushData, clearCart } from '../services/Cart';
+import { cartPushData } from '../services/Cart';
 
 interface ParamsProp {
   id?: string;
@@ -61,8 +61,8 @@ export default function DishDetails() {
     const order = {
       qty: qtyBtnValue,
       dishName: dish.name,
-      additional: `${dish.name}: ${additionals.join(';')},`,
-      observations: `${dish.name}: ${value};`,
+      additional: `${dish.name}: ${additionals.join(';')}`,
+      observations: `${dish.name}: ${value}`,
       price: dish.price * qtyBtnValue,
     };
 

@@ -151,7 +151,7 @@ mongoose
 async function cleanDb() {
   await Dish.deleteMany({}, (err) => {});
   await User.deleteMany({}, (err) => {});
-  await Order.deleteMany({}, (err) => {});
+  // await Order.deleteMany({}, (err) => {});
 }
 cleanDb().then(async () => {
   dataDish.map(async (dish) => {
