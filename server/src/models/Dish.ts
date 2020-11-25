@@ -46,8 +46,8 @@ const DishSchema = new mongoose.Schema(
 interface Idish {
   name: string | undefined | string[];
   image: string;
-  ingredients: [string];
-  sideDishes: [string];
+  ingredients: string[];
+  sideDishes: string[];
   calories: string;
   price: Number;
   category: string | undefined | string[];

@@ -77,6 +77,9 @@ class DishController {
       category,
     } = request.body;
 
+    const ingredientsArray = parseStringAsArray(ingredients);
+    const sideDishesArray = parseStringAsArray(sideDishes);
+
     let dish;
     let newDish;
 
@@ -91,8 +94,8 @@ class DishController {
             id,
             {
               name,
-              ingredients,
-              sideDishes,
+              ingredients: ingredientsArray,
+              sideDishes: sideDishesArray,
               calories,
               price,
               category,
@@ -106,8 +109,8 @@ class DishController {
             {
               name,
               image: filename,
-              ingredients,
-              sideDishes,
+              ingredients: ingredientsArray,
+              sideDishes: sideDishesArray,
               calories,
               price,
               category,
