@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TextInput } from 'react-native';
+
+import { IntlProvider, FormattedNumber } from 'react-intl';
 
 import Header from '../components/Header';
 import CheckBoxItem from '../components/CheckBoxItem';
@@ -10,10 +12,34 @@ import dishDetailsPhoto from '../assets/images/dishDetailsPhoto.png';
 import styles from '../styles/dishDetailsStyle';
 import { ScrollView } from 'react-native-gesture-handler';
 import ConfirmButton from '../components/ConfirmButton';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import api from '../services/api';
+
+interface ParamsProp {
+  id?: string;
+}
 
 export default function DishDetails() {
   const [value, setValue] = useState('');
+  const [qtyBtnValue, setQtyBtnValue] = useState(1);
+  const navigation = useNavigation();
+  const route = useRoute();
+  const [dish, setDish] = useState({
+    id: '',
+    name: '',
+    ingredients: '',
+    price: 0,
+    calories: '',
+  });
+  const { id } = route.params as ParamsProp;
 
+  useEffect(() => {
+    api.get(`/dish`, { headers: { id } }).then((response) => {
+      setDish(response.data);
+    });
+  }, []);
+
+  console.log(dish);
   return (
     <>
       <Header title="Detalhes" navigateTo="OrderDetails" screen="DishDetails" />
@@ -26,14 +52,11 @@ export default function DishDetails() {
         <View style={styles.dishDetailsBoxContainer}>
           <View style={styles.dishDetailsInfoContainer}>
             <View>
-              <Text style={styles.dishTitle}>Hamburguer de carne</Text>
-              <Text style={styles.dishDescription}>
-                Alface, tomate, carne 200g, molho especial, queijo cheedar e
-                picles
-              </Text>
+              <Text style={styles.dishTitle}>{dish?.name}</Text>
+              <Text style={styles.dishDescription}>{dish?.ingredients}</Text>
               <View style={styles.dishCalories}>
                 <Text style={{ fontWeight: 'bold' }}>Calorias:</Text>
-                <Text style={{ color: '#505050' }}> 340</Text>
+                <Text style={{ color: '#505050' }}> {dish?.calories}</Text>
               </View>
             </View>
 
@@ -67,11 +90,22 @@ export default function DishDetails() {
             <View style={styles.quantValueContainer}>
               <View style={{ width: '30%' }}>
                 <Text style={styles.labelQuantValue}>Quantidade</Text>
-                <QuantityButton />
+                <QuantityButton
+                  qtyState={qtyBtnValue}
+                  qtySetState={setQtyBtnValue}
+                />
               </View>
               <View>
                 <Text style={styles.labelQuantValue}>Valor</Text>
-                <Text style={{ fontSize: 24 }}>R$ 28,00</Text>
+                <IntlProvider locale="pt-BR" defaultLocale="pt-BR">
+                  <Text style={{ fontSize: 24 }}>
+                    <FormattedNumber
+                      value={qtyBtnValue * dish?.price}
+                      style="currency"
+                      currency="BRL"
+                    />
+                  </Text>
+                </IntlProvider>
               </View>
             </View>
 
