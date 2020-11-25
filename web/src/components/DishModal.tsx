@@ -30,20 +30,20 @@ const DishModal: React.FC<DishModalProps> = (props) => {
   } = useContext(ModalContext);
 
   const [name, setName] = useState(dishData.name);
-  const [ingredients, setIngredients] = useState(dishData.ingredients);
+  const [ingredients, setIngredients] = useState('');
   const [price, setPrice] = useState(dishData.price);
   const [calories, setCalories] = useState(dishData.calories);
   const [category, setCategory] = useState(dishData.category);
   const [image, setImage] = useState<File>();
-  const [sideDishes, setSideDishes] = useState(dishData.sideDishes);
+  const [sideDishes, setSideDishes] = useState('');
 
   useEffect(() => {
     setName(dishData.name);
-    setIngredients(dishData.ingredients);
+    setIngredients(dishData.ingredients?.join(',') as string);
     setPrice(dishData.price);
     setCalories(dishData.calories);
     setCategory(dishData.category);
-    setSideDishes(dishData.sideDishes);
+    setSideDishes(dishData.sideDishes?.join(',') as string);
   }, [dishData]);
 
   async function dishUpdate() {
@@ -93,12 +93,12 @@ const DishModal: React.FC<DishModalProps> = (props) => {
   async function dishCreate() {
     const data = new FormData();
     data.append('name', name);
-    data.append('ingredients', ingredients);
+    data.append('ingredients', ingredients as string);
     data.append('price', (price as unknown) as string);
     data.append('calories', (calories as unknown) as string);
     data.append('category', category);
     data.append('image', image as File);
-    data.append('sideDishes', sideDishes);
+    data.append('sideDishes', sideDishes as string);
 
     try {
       await api.post(`dishes`, data);
@@ -145,26 +145,18 @@ const DishModal: React.FC<DishModalProps> = (props) => {
   }
 
   function formValidation() {
-    if (name === undefined || name === '' || !!+name === true) {
+    if (name === undefined || !!+name === true) {
       alert('O campo do nome deve ser preenchido e no formato de texto');
-    }
-    if (calories === undefined) {
+    } else if (calories === undefined) {
       console.log(calories);
       alert('O campo de calorias deve estar preenchido e no formato numérico');
-    }
-    if (category === undefined || category === '' || !!+category === true) {
+    } else if (category === undefined || !!+category === true) {
       alert('O campo de categoria deve estar preenchido e no formato de texto');
-    }
-    if (
-      ingredients === undefined ||
-      ingredients === '' ||
-      !!+ingredients === true
-    ) {
+    } else if (ingredients === undefined || !!+ingredients === true) {
       alert(
         'O campo de ingredientes deve estar preenchido e no formato de texto'
       );
-    }
-    if (price === undefined) {
+    } else if (price === undefined) {
       alert('O campo de preço deve estar preenchido e no formato númerico');
     } else {
       if (addVisible) {
