@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { Icon } from 'ts-react-feather-icons';
-import { useHistory } from 'react-router-dom';
 
 import ModalContext from '../components/modalContext';
 
 import swal from 'sweetalert';
-import DishModal from '../components/DishModal';
+
+import 'intl';
+import { IntlProvider, FormattedNumber } from 'react-intl';
+import 'intl/locale-data/jsonp/pt-BR';
 
 import '../styles/components/dishes.css';
 
@@ -16,8 +18,7 @@ interface DishesProps {
 }
 
 const Dishes: React.FC<DishesProps> = ({ dish }) => {
-  const { showEditModal, editVisible } = useContext(ModalContext);
-  const history = useHistory();
+  const { showEditModal, setDish } = useContext(ModalContext);
 
   function swalDelete() {
     swal({
@@ -33,15 +34,14 @@ const Dishes: React.FC<DishesProps> = ({ dish }) => {
     }).then((willConfirm) => {
       if (willConfirm) {
         dishDelete();
-        history.push('/admin');
+        window.location.reload();
       }
     });
   }
 
   async function dishDelete() {
     try {
-      const response = await api.delete(`dishes/${dish.id}`);
-      console.log(response.data);
+      await api.delete(`dishes/${dish.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -49,30 +49,24 @@ const Dishes: React.FC<DishesProps> = ({ dish }) => {
 
   return (
     <>
-      <DishModal
-        open={editVisible}
-        title="Editar prato"
-        button="Editar"
-        id={dish.id}
-        name={dish.name}
-        ingredients={dish.ingredients}
-        price={dish.price}
-        calories={dish.calories}
-        category={dish.category}
-        image_url={dish.image_url}
-        sideDishes={dish.sideDishes}
-      />
       <div id="dish-container">
-        <div>
-          <h3> {dish.name} </h3>
-          <p> {dish.ingredients} </p>
-          {dish.price}
-        </div>
+        <IntlProvider locale="pt-BR" defaultLocale="pt-BR">
+          <div>
+            <h3> {dish.name} </h3>
+            <p> {dish.ingredients} </p>
+            <FormattedNumber
+              value={dish.price}
+              style="currency"
+              currency="BRL"
+            />
+          </div>
+        </IntlProvider>
 
         <div id="dish-buttons">
           <div id="edit" className="button">
             <button
               onClick={() => {
+                setDish(dish);
                 showEditModal();
               }}
             >

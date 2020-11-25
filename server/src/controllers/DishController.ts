@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Dish from '../models/Dish';
+import { parseStringAsArray } from '../utils/parseStringAsArray';
 
 class DishController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -11,6 +12,9 @@ class DishController {
       price,
       category,
     } = request.body;
+
+    const ingredientsArray = parseStringAsArray(ingredients);
+    const sideDishesArray = parseStringAsArray(sideDishes);
 
     let dish;
 
@@ -25,8 +29,8 @@ class DishController {
         dish = await Dish.create({
           name,
           image: filename,
-          ingredients,
-          sideDishes,
+          ingredients: ingredientsArray,
+          sideDishes: sideDishesArray,
           calories,
           price,
           category,
@@ -66,7 +70,6 @@ class DishController {
     const { id } = request.params;
     const {
       name,
-      image,
       ingredients,
       sideDishes,
       calories,
@@ -83,19 +86,35 @@ class DishController {
       if (!dish) {
         return response.status(400).json({ error: 'Dish not found!' });
       } else {
-        newDish = await Dish.findByIdAndUpdate(
-          id,
-          {
-            name,
-            image,
-            ingredients,
-            sideDishes,
-            calories,
-            price,
-            category,
-          },
-          { new: true }
-        );
+        if (request.file === undefined) {
+          newDish = await Dish.findByIdAndUpdate(
+            id,
+            {
+              name,
+              ingredients,
+              sideDishes,
+              calories,
+              price,
+              category,
+            },
+            { new: true }
+          );
+        } else {
+          const { filename } = request.file as Express.Multer.File;
+          newDish = await Dish.findByIdAndUpdate(
+            id,
+            {
+              name,
+              image: filename,
+              ingredients,
+              sideDishes,
+              calories,
+              price,
+              category,
+            },
+            { new: true }
+          );
+        }
         dish = newDish;
         return response.status(200).json(dish);
       }
@@ -121,6 +140,17 @@ class DishController {
       response.status(400).json({ error: error.message });
     }
     return response.status(200).json({ message: 'Dish deleted!' });
+  }
+
+  public async findId(request: Request, response: Response): Promise<Response> {
+    const { id } = request.headers;
+    let dishes;
+    try {
+      dishes = await Dish.findById(id);
+    } catch (error) {
+      response.status(400).json({ error: error.message });
+    }
+    return response.status(200).json(dishes);
   }
 
   public async search(request: Request, response: Response): Promise<Response> {

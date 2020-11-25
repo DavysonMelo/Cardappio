@@ -8,8 +8,9 @@ import mongoose from 'mongoose';
 const dataDish = [
   {
     name: 'Hamburger Do Chef',
-    ingredients: "'2 Hamburgers 200g', 'Alface', 'Queijo cheddar', 'Pão Bola'",
-    image: 'http://loremflickr.com/500/500/food',
+    ingredients: ['2 Hamburgers 200g', 'Alface', 'Queijo cheddar', 'Pão Bola'],
+    image: 'http://loremflickr.com/500/500/food?random=1',
+    image_url: 'http://loremflickr.com/500/500/food?random=1',
     sideDishes: ['Salada', 'Fritas', 'Tomate', 'Bacon'],
     calories: '550',
     price: 27.5,
@@ -17,8 +18,9 @@ const dataDish = [
   },
   {
     name: 'Mini Hamburger',
-    ingredients: "'1 Hamburger 100g', 'Alface', 'Queijo prato', 'pão bola'",
-    image: 'http://loremflickr.com/500/500/food',
+    ingredients: ['1 Hamburger 100g', 'Alface', 'Queijo prato', 'pão bola'],
+    image: 'http://loremflickr.com/500/500/food?random=2',
+    image_url: 'http://loremflickr.com/500/500/food?random=2',
     sideDishes: ['Salada', 'Fritas', 'Bacon', 'Tomate'],
     calories: '250',
     price: 16,
@@ -26,41 +28,45 @@ const dataDish = [
   },
   {
     name: 'Coca-Cola 250ml',
-    ingredients: "'Coca-cola em um copo de 250ml'",
-    image: 'http://loremflickr.com/500/500/food',
-    sideDishes: [],
+    ingredients: ['Coca-cola em um copo de 250ml'],
+    image: 'http://loremflickr.com/500/500/food?random=3',
+    image_url: 'http://loremflickr.com/500/500/food?random=3',
+    sideDishes: [''],
     calories: '160',
     price: 3.5,
     category: 'Bebidas',
   },
   {
     name: 'Coca-Cola 500ml',
-    ingredients: "'Coca-cola em um copo de 500ml'",
-    image: 'http://loremflickr.com/500/500/food',
-    sideDishes: [],
+    ingredients: ['Coca-cola em um copo de 500ml'],
+    image: 'http://loremflickr.com/500/500/food?random=4',
+    image_url: 'http://loremflickr.com/500/500/food?random=4',
+    sideDishes: [''],
     calories: '340',
     price: 6.99,
     category: 'Bebidas',
   },
   {
     name: 'Coca-Cola 1l',
-    ingredients: "'Coca-cola em garrafa de 1l'",
-    image: 'http://loremflickr.com/500/500/food',
-    sideDishes: [],
+    ingredients: ['Coca-cola em garrafa de 1l'],
+    image: 'http://loremflickr.com/500/500/food?random=5',
+    image_url: 'http://loremflickr.com/500/500/food?random=5',
+    sideDishes: [''],
     calories: '600',
     price: 10.99,
     category: 'Bebidas',
   },
   {
     name: 'Salada do Chef',
-    ingredients:""
+    ingredients: [
       'Repolho',
       'Cenoura',
       'Farofa de Bacon',
       'Maionese',
       '90g Mix de folhas',
     ],
-    image: 'http://loremflickr.com/500/500/food',
+    image: 'http://loremflickr.com/500/500/food?random=6',
+    image_url: 'http://loremflickr.com/500/500/food?random=6',
     sideDishes: [
       'Tomate',
       'Alface',
@@ -75,8 +81,9 @@ const dataDish = [
   },
   {
     name: 'Mini Salada',
-    ingredients: "'25g Mix de Folhas'",
-    image: 'http://loremflickr.com/500/500/food',
+    ingredients: ['25g Mix de Folhas'],
+    image: 'http://loremflickr.com/500/500/food?random=7',
+    image_url: 'http://loremflickr.com/500/500/food?random=7',
     sideDishes: ['Tomate', 'Alface', 'Frango', 'Croutons', 'Molho Balsamico'],
     calories: '25',
     price: 35.99,
@@ -97,36 +104,36 @@ const dataUser = [
   },
 ];
 
-const dataOrder = [
-  {
-    dishId: '',
-    tableNumber: [1],
-    number: 1,
-    observations: ['Sem Bacon'],
-    status: 'Recebido',
-  },
-  {
-    dishId: '',
-    tableNumber: [1],
-    number: 2,
-    observations: ['Trocar queijo para cheddar e molho extra'],
-    status: 'Recebido',
-  },
-  {
-    dishId: '',
-    tableNumber: [2],
-    number: 3,
-    observations: ['Com gelo'],
-    status: 'Recebido',
-  },
-  {
-    dishId: '',
-    tableNumber: [3],
-    number: 4,
-    observations: ['Sem gelo'],
-    status: 'Recebido',
-  },
-];
+// const dataOrder = [
+//   {
+//     dishId: '',
+//     tableNumber: [1],
+//     number: 1,
+//     observations: 'Sem Bacon',
+//     status: 'Recebido',
+//   },
+//   {
+//     dishId: '',
+//     tableNumber: [1],
+//     number: 2,
+//     observations: 'Trocar queijo para cheddar e molho extra',
+//     status: 'Recebido',
+//   },
+//   {
+//     dishId: '',
+//     tableNumber: [2],
+//     number: 3,
+//     observations: 'Com gelo',
+//     status: 'Recebido',
+//   },
+//   {
+//     dishId: '',
+//     tableNumber: [3],
+//     number: 4,
+//     observations: 'Sem gelo',
+//     status: 'Recebido',
+//   },
+// ];
 
 mongoose
   .connect(
@@ -170,8 +177,8 @@ cleanDb().then(async () => {
 //       dataOrder[3].dishId = data[0]._id;
 //     })
 //     .then(() => {
-//       dataOrder.map(async (order, index) => {
-//         console.log('creating: ', order);
+//       dataOrder.map(async (order,index) => {
+//         console.log('creating: ',order);
 //         await Order.create(order);
 //         if (dataOrder.length - 1 === index) {
 //           console.log('DONE!');

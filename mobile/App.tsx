@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Routes from './src/routes';
 import { AppLoading } from 'expo';
+
 import {
   useFonts,
   DancingScript_700Bold,

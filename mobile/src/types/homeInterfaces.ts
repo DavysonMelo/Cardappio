@@ -7,10 +7,11 @@ export interface CategoryInterface {
 export interface DishInterface {
   id: string;
   name: string;
-  ingredients: string;
+  ingredients: string[];
   price: number;
   calories: number;
   category: string;
+  image: string;
   image_url: string;
-  sideDishes: string;
+  sideDishes: string[];
 }
