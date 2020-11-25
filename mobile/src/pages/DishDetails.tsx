@@ -15,7 +15,7 @@ import ConfirmButton from '../components/ConfirmButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../services/api';
 import { DishInterface } from '../types/homeInterfaces';
-import { getCart, cartPushData } from '../services/Cart';
+import { cartPushData } from '../services/Cart';
 
 interface ParamsProp {
   id?: string;
@@ -25,9 +25,10 @@ export default function DishDetails() {
   const [value, setValue] = useState('');
   const [qtyBtnValue, setQtyBtnValue] = useState(1);
   const navigation = useNavigation();
+  const [checkboxes, setCheckboxes] = useState({});
   const route = useRoute();
 
-  const [dish, setDish] = useState({
+  const [dish, setDish] = useState<DishInterface>({
     id: '',
     name: '',
     ingredients: [''],
@@ -37,18 +38,41 @@ export default function DishDetails() {
     sideDishes: [''],
     image: '',
     image_url: '',
-  });
+  } as DishInterface);
 
   const { id } = route.params as ParamsProp;
 
   useEffect(() => {
-    api.get(`/dish`, { headers: { id } }).then((response) => {
-      setDish(response.data);
-    });
+    api
+      .get(`/dish`, { headers: { id } })
+      .then((response) => {
+        setDish(response.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   async function handleSubmit() {
-    console.log(await getCart());
+    const additionals = Object.keys(checkboxes).filter((checkbox) => {
+      if (checkboxes[checkbox]) {
+        return checkbox;
+      }
+    });
+
+    const order = {
+      qty: qtyBtnValue,
+      dishName: dish.name,
+      additional: `${dish.name}: ${additionals.join(';')}`,
+      observations: `${dish.name}: ${value}`,
+      price: dish.price * qtyBtnValue,
+    };
+
+    await cartPushData(order);
+    navigation.navigate('OrderDetails');
+  }
+
+  function handleCheck(checkboxInfo: string) {
+    const checkbox = checkboxInfo.split(':');
+    setCheckboxes({ ...checkboxes, [checkbox[0]]: JSON.parse(checkbox[1]) });
   }
 
   return (
@@ -85,7 +109,11 @@ export default function DishDetails() {
 
             <View style={styles.checkboxContainer}>
               {dish?.sideDishes.map((side) => (
-                <CheckBoxItem key={side} sideDish={side} />
+                <CheckBoxItem
+                  key={side}
+                  addCheck={handleCheck}
+                  sideDish={side}
+                />
               ))}
             </View>
 
@@ -125,7 +153,10 @@ export default function DishDetails() {
               </View>
             </View>
 
-            <ConfirmButton handlePress={handleSubmit} title="Adicionar item" />
+            <ConfirmButton
+              handlePress={() => handleSubmit()}
+              title="Adicionar item"
+            />
           </View>
         </View>
       </ScrollView>

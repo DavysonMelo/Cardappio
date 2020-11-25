@@ -15,3 +15,10 @@ export interface DishInterface {
   image_url: string;
   sideDishes: string[];
 }
+export interface Order {
+  qty: number;
+  dishName: string;
+  additional: string;
+  observations: string;
+  price: number;
+}

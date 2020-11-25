@@ -7,7 +7,8 @@ export const cartPushData = async (value: any) => {
       await AsyncStorage.setItem('cart', JSON.stringify([]));
     }
     const parsed = JSON.parse(data as string);
-    await AsyncStorage.setItem('cart', JSON.stringify([...parsed, value]));
+    parsed.push(value);
+    await AsyncStorage.setItem('cart', JSON.stringify(parsed));
   } catch (error) {
     console.log(error);
   }
@@ -21,6 +22,14 @@ export const getCart = async () => {
     }
     const parsed = JSON.parse(data as string);
     return parsed;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const clearCart = async () => {
+  try {
+    await AsyncStorage.setItem('cart', JSON.stringify([]));
   } catch (error) {
     console.log(error);
   }

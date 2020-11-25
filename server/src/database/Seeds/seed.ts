@@ -31,7 +31,7 @@ const dataDish = [
     ingredients: ['Coca-cola em um copo de 250ml'],
     image: 'http://loremflickr.com/500/500/food?random=3',
     image_url: 'http://loremflickr.com/500/500/food?random=3',
-    sideDishes: [''],
+    sideDishes: ['Canudo'],
     calories: '160',
     price: 3.5,
     category: 'Bebidas',
@@ -41,7 +41,7 @@ const dataDish = [
     ingredients: ['Coca-cola em um copo de 500ml'],
     image: 'http://loremflickr.com/500/500/food?random=4',
     image_url: 'http://loremflickr.com/500/500/food?random=4',
-    sideDishes: [''],
+    sideDishes: ['Canudo'],
     calories: '340',
     price: 6.99,
     category: 'Bebidas',
@@ -51,7 +51,7 @@ const dataDish = [
     ingredients: ['Coca-cola em garrafa de 1l'],
     image: 'http://loremflickr.com/500/500/food?random=5',
     image_url: 'http://loremflickr.com/500/500/food?random=5',
-    sideDishes: [''],
+    sideDishes: ['Canudo'],
     calories: '600',
     price: 10.99,
     category: 'Bebidas',
@@ -151,7 +151,7 @@ mongoose
 async function cleanDb() {
   await Dish.deleteMany({}, (err) => {});
   await User.deleteMany({}, (err) => {});
-  await Order.deleteMany({}, (err) => {});
+  // await Order.deleteMany({}, (err) => {});
 }
 cleanDb().then(async () => {
   dataDish.map(async (dish) => {

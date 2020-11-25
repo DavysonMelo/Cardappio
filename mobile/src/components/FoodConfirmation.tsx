@@ -12,12 +12,16 @@ interface FoodConfirmation {
   name: string;
   price: number;
   quantity: number;
+  sideDishes: string[];
+  observations: string[];
 }
 
 export default function FoodConfirmation({
   price,
   name,
   quantity,
+  sideDishes,
+  observations,
 }: FoodConfirmation) {
   return (
     <View style={styles.container}>
@@ -32,11 +36,14 @@ export default function FoodConfirmation({
         </IntlProvider>
       </View>
       <View style={styles.extraDishesContainer}>
-        <ExtraDishes name="Água Mineral" />
-        <ExtraDishes name="Batata Frita M" />
-        <ExtraDishes name="Carne extra" />
-        <ExtraDishes name="Batata frita G" />
-        <ExtraDishes name="Refrigerante 500ml" />
+        {sideDishes.map((side) => (
+          <ExtraDishes key={side} name={side} />
+        ))}
+        <View style={styles.extraDishesContainer}>
+          {observations.map((observation, index) => (
+            <ExtraDishes key={index} name={observation} />
+          ))}
+        </View>
         <View style={styles.line} />
       </View>
     </View>

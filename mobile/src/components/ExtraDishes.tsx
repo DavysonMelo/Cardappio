@@ -17,7 +17,7 @@ export default function ExtraDishes({ name }: ExtraDishes) {
       <Text style={styles.extraDishesFont}>- {name}</Text>
       <IntlProvider locale="pt-BR" defaultLocale="pt-BR">
         <Text style={styles.extraDishesFontPrice}>
-          +<FormattedNumber value={8} style="currency" currency="BRL" />
+          {/* +<FormattedNumber value={8} style="currency" currency="BRL" /> */}
         </Text>
       </IntlProvider>
     </View>
