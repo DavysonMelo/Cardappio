@@ -30,6 +30,26 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     left: 10,
   },
+
+  notifContainer: {
+    position: 'relative',
+  },
+
+  notifMain: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#2BD03C',
+    right: 1,
+  },
+
+  notifNumber: {
+    position: 'absolute',
+    color: '#fff',
+  },
 });
 
 export default styles;
