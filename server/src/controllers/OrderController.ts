@@ -40,11 +40,9 @@ class OrderController {
 
   public async index(request: Request, response: Response): Promise<Response> {
     const { status } = request.headers;
-    let stts: String;
-    stts = status as String;
     let orders;
     try {
-      orders = await Order.find({ status: stts });
+      orders = await Order.find({ status });
       return response.json(orders);
     } catch (error) {
       return response.status(400).json({ error: error.message });
