@@ -44,6 +44,8 @@ export default function DishDetails() {
     });
   }, []);
 
+  function handleSubmit() {}
+
   return (
     <>
       <Header title="Detalhes" navigateTo="OrderDetails" screen="DishDetails" />
@@ -118,7 +120,7 @@ export default function DishDetails() {
               </View>
             </View>
 
-            <ConfirmButton title="Adicionar item" />
+            <ConfirmButton handlePress={handleSubmit} title="Adicionar item" />
           </View>
         </View>
       </ScrollView>
