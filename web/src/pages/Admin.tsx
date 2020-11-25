@@ -109,14 +109,9 @@ function Admin() {
               <select
                 name="categories"
                 onChange={(e) => filterDishes(e.target.value)}
-                defaultValue="Selecione"
+                defaultValue="Todos"
               >
-                <option id="default-category" value="Selecione" disabled hidden>
-                  Selecione uma categoria
-                </option>
-                <option label="Todos" value="Todos">
-                  Todos
-                </option>
+                <option label="Geral" value="Todos" />
                 {categories.map((dish) => (
                   <option
                     key={dish.category}
