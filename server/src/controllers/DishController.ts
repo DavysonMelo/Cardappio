@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Dish from '../models/Dish';
+import Dish, { IdishDoc } from '../models/Dish';
 import { parseStringAsArray } from '../utils/parseStringAsArray';
 
 class DishController {
@@ -77,6 +77,9 @@ class DishController {
       category,
     } = request.body;
 
+    const ingredientsArray = parseStringAsArray(ingredients);
+    const sideDishesArray = parseStringAsArray(sideDishes);
+
     let dish;
     let newDish;
 
@@ -91,8 +94,8 @@ class DishController {
             id,
             {
               name,
-              ingredients,
-              sideDishes,
+              ingredients: ingredientsArray,
+              sideDishes: sideDishesArray,
               calories,
               price,
               category,
@@ -106,8 +109,8 @@ class DishController {
             {
               name,
               image: filename,
-              ingredients,
-              sideDishes,
+              ingredients: ingredientsArray,
+              sideDishes: sideDishesArray,
               calories,
               price,
               category,
@@ -154,17 +157,26 @@ class DishController {
   }
 
   public async search(request: Request, response: Response): Promise<Response> {
-    const { name } = request.headers;
-    const nameReg = new RegExp(name as string, 'i');
-    let dishes;
+    const { name, category } = request.headers;
+    const nName = name as String;
+    let dishes: IdishDoc[];
+    let newDishes: IdishDoc[];
+    dishes = [] as IdishDoc[];
+    newDishes = [] as IdishDoc[];
     try {
       dishes = await Dish.find({
-        name: nameReg,
+        category,
       });
+
+      dishes.map((dish) => {
+        if (dish.name?.includes(nName as string)) {
+          newDishes.push(dish);
+        }
+      });
+      return response.status(200).json(newDishes);
     } catch (error) {
-      response.status(400).json({ error: error.message });
+      return response.status(400).json({ error: error.message });
     }
-    return response.status(200).json(dishes);
   }
 }
 

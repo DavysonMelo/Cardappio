@@ -17,7 +17,7 @@ const OrderSchema = new mongoose.Schema({
     {
       type: String,
       required: true,
-      ref: 'Food',
+      ref: 'Dish',
     },
   ],
 
@@ -49,7 +49,7 @@ interface IOrder {
   tableNumber: number;
   observations: string[];
   additional: string[];
-  status: String;
+  status: string | undefined | string[];
 }
 
 export interface IOrderDoc extends IOrder, Document {}
