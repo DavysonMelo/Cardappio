@@ -218,6 +218,8 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   defaultValue={dishData.name}
                   type="text"
                   name="name"
+                  required
+                  title="Digite o nome do prato"
                   onChange={(e) => {
                     setName(e.target.value);
                   }}
@@ -229,6 +231,8 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   defaultValue={dishData.sideDishes}
                   type="text"
                   name="sideDishes"
+                  required
+                  title="Digite os acompanhamentos separando por vírgulas"
                   onChange={(e) => {
                     setSideDishes(e.target.value);
                   }}
@@ -240,6 +244,8 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   type="file"
                   name="image"
                   accept="image/*"
+                  required
+                  title="Anexe uma imagem do prato"
                   style={{
                     backgroundColor: '#FFF',
                   }}
@@ -253,6 +259,8 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                 <textarea
                   defaultValue={dishData.ingredients}
                   name="ingredients"
+                  required
+                  title="Digite os ingredientes separados por vírgula"
                   onChange={(e) => {
                     setIngredients(e.target.value);
                   }}
@@ -270,6 +278,8 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   type="number"
                   name="calories"
                   min="0"
+                  required
+                  title="Digite as calorias do prato"
                   onChange={(e) => {
                     let caloriesInput = (e.target.value as unknown) as number;
                     if (caloriesInput < 0) {
@@ -285,6 +295,8 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   defaultValue={dishData.category}
                   type="text"
                   name="category"
+                  required
+                  title="Digite a categoria do prato"
                   onChange={(e) => {
                     setCategory(e.target.value);
                   }}
@@ -297,6 +309,8 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   type="number"
                   name="price"
                   min="0"
+                  required
+                  title="Digite o preço do prato"
                   onChange={(e) => {
                     let priceInput = parseFloat(e.target.value);
                     if (priceInput < 0) {
