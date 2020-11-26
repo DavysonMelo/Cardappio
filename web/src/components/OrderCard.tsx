@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useDrag } from 'react-dnd';
 import ITEM_TYPE from '../types/item';
 
-import orderCropImage from '../assets/images/orderCrop.png';
 import '../styles/components/orderCard.css';
 import BoardContext from './boardContext';
 import Order from '../types/order';

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import ModalContext from '../components/modalContext';
 
 import '../styles/global.css';
@@ -97,105 +97,106 @@ function Admin() {
     setDishes(response.data);
   }
 
-  return (
-    <>
-      {user && user.role === 'administrator' ? (
-        <>
-          <DishModal
-            open={addVisible}
-            title="Adicionar prato"
-            button="Adicionar"
-          />
-          <DishModal open={editVisible} title="Editar prato" button="Editar" />
+  console.log(user);
+  console.log(user.role);
+  if (
+    JSON.parse(localStorage.getItem('user') as string) &&
+    JSON.parse(localStorage.getItem('user') as string).role === 'administrator'
+  ) {
+    return (
+      <>
+        <DishModal
+          open={addVisible}
+          title="Adicionar prato"
+          button="Adicionar"
+        />
+        <DishModal open={editVisible} title="Editar prato" button="Editar" />
 
-          <div id="page-admin">
-            <aside id="side-bar">
-              <div className="log-Out">
-                <button onClick={swalPopUp}>
-                  <Icon name="log-out" size={35} color="#FFFF" />
-                </button>
-              </div>
+        <div id="page-admin">
+          <aside id="side-bar">
+            <div className="log-Out">
+              <button onClick={swalPopUp}>
+                <Icon name="log-out" size={35} color="#FFFF" />
+              </button>
+            </div>
 
-              <div id="logo-Img">
-                <img id="img" src={logoImg} alt="Logo Cardappio" />
-              </div>
-            </aside>
+            <div id="logo-Img">
+              <img id="img" src={logoImg} alt="Logo Cardappio" />
+            </div>
+          </aside>
 
-            <main id="content-container">
-              <div id="search-categories-container">
-                <div id="select-categories">
-                  <select
-                    name="categories"
-                    onChange={(e) => filterDishes(e.target.value)}
-                    defaultValue="Selecione"
+          <main id="content-container">
+            <div id="search-categories-container">
+              <div id="select-categories">
+                <select
+                  name="categories"
+                  onChange={(e) => filterDishes(e.target.value)}
+                  defaultValue="Selecione"
+                >
+                  <option
+                    id="default-category"
+                    value="Selecione"
+                    disabled
+                    hidden
                   >
+                    Selecione uma categoria
+                  </option>
+                  <option label="Todos" value="Todos">
+                    Todos
+                  </option>
+                  {categories.map((dish) => (
                     <option
-                      id="default-category"
-                      value="Selecione"
-                      disabled
-                      hidden
-                    >
-                      Selecione uma categoria
-                    </option>
-                    <option label="Todos" value="Todos">
-                      Todos
-                    </option>
-                    {categories.map((dish) => (
-                      <option
-                        key={dish.category}
-                        label={dish.category}
-                        value={dish.category}
-                      />
-                    ))}
-                  </select>
-                </div>
-
-                <div id="search-dishes">
-                  <input
-                    type="text"
-                    placeholder="Pesquisa de item"
-                    onChange={(e) => setSearchName(e.target.value)}
-                  />
-
-                  <div id="click-search-input">
-                    <button type="submit" onClick={searchDish}>
-                      <Icon name="search" size={20} color="#000" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div id="dishes-container">
-                <div id="title-plus">
-                  <h2>Cardápio</h2>
-                  <div id="plus-button">
-                    <button
-                      onClick={() => {
-                        setDish({} as DishProps);
-                        showAddModal();
-                      }}
-                    >
-                      <Icon name="plus" size={33} color="#FFF" />
-                    </button>
-                  </div>
-                </div>
-
-                <div id="dishes-list">
-                  {dishes.map((dish) => (
-                    <Dishes key={dish.id} dish={dish} />
+                      key={dish.category}
+                      label={dish.category}
+                      value={dish.category}
+                    />
                   ))}
+                </select>
+              </div>
+
+              <div id="search-dishes">
+                <input
+                  type="text"
+                  placeholder="Pesquisa de item"
+                  onChange={(e) => setSearchName(e.target.value)}
+                />
+
+                <div id="click-search-input">
+                  <button type="submit" onClick={searchDish}>
+                    <Icon name="search" size={20} color="#000" />
+                  </button>
                 </div>
               </div>
-            </main>
-          </div>
-        </>
-      ) : (
-        <div>
-          <>{() => history.push('/')}</>
+            </div>
+
+            <div id="dishes-container">
+              <div id="title-plus">
+                <h2>Cardápio</h2>
+                <div id="plus-button">
+                  <button
+                    onClick={() => {
+                      setDish({} as DishProps);
+                      showAddModal();
+                    }}
+                  >
+                    <Icon name="plus" size={33} color="#FFF" />
+                  </button>
+                </div>
+              </div>
+
+              <div id="dishes-list">
+                {dishes.map((dish) => (
+                  <Dishes key={dish.id} dish={dish} />
+                ))}
+              </div>
+            </div>
+          </main>
         </div>
-      )}
-    </>
-  );
+      </>
+    );
+  } else {
+    return <Redirect to="/" />;
+  }
 }
 
 export default Admin;

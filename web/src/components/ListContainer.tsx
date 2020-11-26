@@ -24,15 +24,11 @@ const ListContainer: React.FC<ListProps> = (props) => {
       const res = await api.put(`orders/${cardId}`, {
         status: 'preparando',
       });
-      console.log(res.data);
     } else if (tgtListIdx === 2) {
       const res = await api.put(`orders/${cardId}`, {
         status: 'pronto',
       });
-      console.log(res.data);
     }
-
-    console.log(tgtListIdx);
   }
 
   const [{ isOver }, drop] = useDrop({

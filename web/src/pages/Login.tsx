@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import api from '../services/api';
 import UserInterface from '../types/user';
 
@@ -50,46 +50,58 @@ function Login() {
     }
   }
 
-  return (
-    <div id="container">
-      <div id="left-sidebar">
-        <img src={logo} alt="Cardappio" />
-      </div>
+  if (
+    JSON.parse(localStorage.getItem('user') as string) &&
+    JSON.parse(localStorage.getItem('user') as string).role === 'administrator'
+  ) {
+    return <Redirect to="/admin" />;
+  } else if (
+    JSON.parse(localStorage.getItem('user') as string) &&
+    JSON.parse(localStorage.getItem('user') as string).role === 'kitchen'
+  ) {
+    return <Redirect to="/kitchen" />;
+  } else {
+    return (
+      <div id="container">
+        <div id="left-sidebar">
+          <img src={logo} alt="Cardappio" />
+        </div>
 
-      <div id="login-container">
-        <label id="login-label">LOGIN</label>
-        <div id="login-box">
-          <form>
-            <label className="label">Usuário</label>
-            <input
-              className="input"
-              type="text"
-              name="user"
-              value={userName as string}
-              onChange={(e) => {
-                setUserName(e.target.value);
-              }}
-            />
+        <div id="login-container">
+          <label id="login-label">LOGIN</label>
+          <div id="login-box">
+            <form>
+              <label className="label">Usuário</label>
+              <input
+                className="input"
+                type="text"
+                name="user"
+                value={userName as string}
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                }}
+              />
 
-            <label className="label">Senha</label>
-            <input
-              className="input"
-              type="password"
-              name="password"
-              value={password as string}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
+              <label className="label">Senha</label>
+              <input
+                className="input"
+                type="password"
+                name="password"
+                value={password as string}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
 
-            <button type="submit" onClick={login}>
-              Entrar
-            </button>
-          </form>
+              <button type="submit" onClick={login}>
+                Entrar
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Login;

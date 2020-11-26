@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import socketio from 'socket.io-client';
 import { Icon } from 'ts-react-feather-icons';
 import { DndProvider } from 'react-dnd';
@@ -110,9 +110,12 @@ function Kitchen() {
     });
   }
 
-  return (
-    <>
-      {user && user.role === 'kitchen' ? (
+  if (
+    JSON.parse(localStorage.getItem('user') as string) &&
+    JSON.parse(localStorage.getItem('user') as string).role === 'kitchen'
+  ) {
+    return (
+      <>
         <DndProvider backend={HTML5Backend}>
           <div id="kitchen-container">
             <header>
@@ -161,11 +164,11 @@ function Kitchen() {
             </div>
           </div>
         </DndProvider>
-      ) : (
-        <>{() => history.push('/')}</>
-      )}
-    </>
-  );
+      </>
+    );
+  } else {
+    return <Redirect to="/" />;
+  }
 }
 
 export default Kitchen;
