@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import styles from '../styles/headerStyle';
@@ -19,11 +19,14 @@ export default function Header({ title, screen }: Header) {
   const navigation = useNavigation();
   const [notifNumber, setNotifNumber] = useState(0);
 
-  useEffect(() => {
-    getCart().then((cart) => {
-      setNotifNumber(cart.length);
-    });
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getCart().then((cart) => {
+        setNotifNumber(cart.length);
+      });
+      return () => {};
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
