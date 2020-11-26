@@ -99,6 +99,7 @@ function Admin() {
 
   return (
     <>
+<<<<<<< HEAD
       {user && user.role === 'administrator' ? (
         <>
           <DishModal
@@ -113,6 +114,53 @@ function Admin() {
               <div className="log-Out">
                 <button onClick={swalPopUp}>
                   <Icon name="log-out" size={35} color="#FFFF" />
+=======
+      <DishModal open={addVisible} title="Adicionar prato" button="Adicionar" />
+      <DishModal open={editVisible} title="Editar prato" button="Editar" />
+
+      <div id="page-admin">
+        <aside id="side-bar">
+          <div className="log-Out">
+            <button onClick={swalPopUp}>
+              <Icon name="log-out" size={35} color="#FFFF" />
+            </button>
+          </div>
+
+          <div id="logo-Img">
+            <img id="img" src={logoImg} alt="Logo Cardappio" />
+          </div>
+        </aside>
+
+        <main id="content-container">
+          <div id="search-categories-container">
+            <div id="select-categories">
+              <select
+                name="categories"
+                onChange={(e) => filterDishes(e.target.value)}
+                defaultValue="Todos"
+              >
+                <option label="Geral" value="Todos" />
+                {categories.map((dish) => (
+                  <option
+                    key={dish.category}
+                    label={dish.category}
+                    value={dish.category}
+                  />
+                ))}
+              </select>
+            </div>
+
+            <div id="search-dishes">
+              <input
+                type="text"
+                placeholder="Pesquisa de item"
+                onChange={(e) => setSearchName(e.target.value)}
+              />
+
+              <div id="click-search-input">
+                <button type="submit" onClick={searchDish}>
+                  <Icon name="search" size={20} color="#000" />
+>>>>>>> 39ce6d8fa4f2574051f8f80115e5ce838e00214d
                 </button>
               </div>
 

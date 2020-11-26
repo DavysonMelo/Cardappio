@@ -8,6 +8,8 @@ import React, {
 import Modal from 'react-modal';
 import ModalContext from './modalContext';
 
+import swal from 'sweetalert';
+
 import '../styles/components/dishModal.css';
 
 import api from '../services/api';
@@ -28,20 +30,20 @@ const DishModal: React.FC<DishModalProps> = (props) => {
   } = useContext(ModalContext);
 
   const [name, setName] = useState(dishData.name);
-  const [ingredients, setIngredients] = useState(dishData.ingredients);
+  const [ingredients, setIngredients] = useState('');
   const [price, setPrice] = useState(dishData.price);
   const [calories, setCalories] = useState(dishData.calories);
   const [category, setCategory] = useState(dishData.category);
   const [image, setImage] = useState<File>();
-  const [sideDishes, setSideDishes] = useState(dishData.sideDishes);
+  const [sideDishes, setSideDishes] = useState('');
 
   useEffect(() => {
     setName(dishData.name);
-    setIngredients(dishData.ingredients);
+    setIngredients(dishData.ingredients?.join(',') as string);
     setPrice(dishData.price);
     setCalories(dishData.calories);
     setCategory(dishData.category);
-    setSideDishes(dishData.sideDishes);
+    setSideDishes(dishData.sideDishes?.join(',') as string);
   }, [dishData]);
 
   async function dishUpdate() {
@@ -56,7 +58,34 @@ const DishModal: React.FC<DishModalProps> = (props) => {
 
     try {
       await api.put(`dishes/${dishData.id}`, data);
+      swal({
+        title: 'Informações atualizadas com sucesso',
+        icon: 'success',
+        buttons: {
+          cancel: { visible: false },
+          confirm: { visible: true, text: 'Ok' },
+        },
+      }).then((willConfirm) => {
+        if (willConfirm) {
+          window.location.reload();
+        }
+      });
     } catch (err) {
+      swal({
+        title: 'Não foi possível atualizar as informações do prato',
+        text: 'Verifique os dados e tente novamente',
+        icon: 'warning',
+        timer: 10000,
+        dangerMode: true,
+        buttons: {
+          cancel: { visible: false },
+          confirm: { visible: true, text: 'Ok' },
+        },
+      }).then((willConfirm) => {
+        if (willConfirm) {
+          window.location.reload();
+        }
+      });
       console.log(err);
     }
   }
@@ -64,16 +93,44 @@ const DishModal: React.FC<DishModalProps> = (props) => {
   async function dishCreate() {
     const data = new FormData();
     data.append('name', name);
-    data.append('ingredients', ingredients);
+    data.append('ingredients', ingredients as string);
     data.append('price', (price as unknown) as string);
     data.append('calories', (calories as unknown) as string);
     data.append('category', category);
     data.append('image', image as File);
-    data.append('sideDishes', sideDishes);
+    data.append('sideDishes', sideDishes as string);
 
     try {
       await api.post(`dishes`, data);
+      swal({
+        title: 'Prato criado com sucesso',
+        icon: 'success',
+        buttons: {
+          cancel: { visible: false },
+          confirm: { visible: true, text: 'Ok' },
+        },
+      }).then((willConfirm) => {
+        if (willConfirm) {
+          window.location.reload();
+        }
+      });
     } catch (err) {
+      swal({
+        title: 'Não foi possível criar o prato',
+        text: 'Verifique os dados e tente novamente',
+        icon: 'warning',
+        timer: 10000,
+        dangerMode: true,
+        buttons: {
+          cancel: { visible: false },
+          confirm: { visible: true, text: 'Ok' },
+        },
+      }).then((willConfirm) => {
+        if (willConfirm) {
+          window.location.reload();
+        }
+      });
+
       console.log(err);
     }
   }
@@ -87,17 +144,38 @@ const DishModal: React.FC<DishModalProps> = (props) => {
     setImage(selectedImage[0]);
   }
 
+  function formValidation() {
+    if (name === undefined || !!+name === true) {
+      alert('O campo do nome deve ser preenchido e no formato de texto');
+    } else if (calories === undefined) {
+      console.log(calories);
+      alert('O campo de calorias deve estar preenchido e no formato numérico');
+    } else if (category === undefined || !!+category === true) {
+      alert('O campo de categoria deve estar preenchido e no formato de texto');
+    } else if (ingredients === undefined || !!+ingredients === true) {
+      alert(
+        'O campo de ingredientes deve estar preenchido e no formato de texto'
+      );
+    } else if (price === undefined) {
+      alert('O campo de preço deve estar preenchido e no formato númerico');
+    } else {
+      if (addVisible) {
+        if (image === undefined) {
+          alert('Uma imagem deve ser anexada ao prato ');
+        } else {
+          dishCreate();
+          closeAddModal();
+        }
+      } else {
+        dishUpdate();
+        closeEditModal();
+      }
+    }
+  }
+
   function submit(e: FormEvent) {
     e.preventDefault();
-
-    if (addVisible) {
-      dishCreate();
-      closeAddModal();
-    } else {
-      dishUpdate();
-      closeEditModal();
-    }
-    window.location.reload();
+    formValidation();
   }
 
   return (
@@ -133,6 +211,7 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   type="text"
                   name="name"
                   required
+                  title="Digite o nome do prato"
                   onChange={(e) => {
                     setName(e.target.value);
                   }}
@@ -145,6 +224,7 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   type="text"
                   name="sideDishes"
                   required
+                  title="Digite os acompanhamentos separando por vírgulas"
                   onChange={(e) => {
                     setSideDishes(e.target.value);
                   }}
@@ -157,6 +237,7 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   name="image"
                   accept="image/*"
                   required
+                  title="Anexe uma imagem do prato"
                   style={{
                     backgroundColor: '#FFF',
                   }}
@@ -171,6 +252,7 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   defaultValue={dishData.ingredients}
                   name="ingredients"
                   required
+                  title="Digite os ingredientes separados por vírgula"
                   onChange={(e) => {
                     setIngredients(e.target.value);
                   }}
@@ -186,10 +268,15 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                 <input
                   defaultValue={dishData.calories}
                   type="number"
-                  pattern="/\d+/"
                   name="calories"
+                  min="0"
                   required
+                  title="Digite as calorias do prato"
                   onChange={(e) => {
+                    let caloriesInput = (e.target.value as unknown) as number;
+                    if (caloriesInput < 0) {
+                      e.target.value = '0';
+                    }
                     setCalories((e.target.value as unknown) as number);
                   }}
                 />
@@ -201,6 +288,7 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                   type="text"
                   name="category"
                   required
+                  title="Digite a categoria do prato"
                   onChange={(e) => {
                     setCategory(e.target.value);
                   }}
@@ -211,11 +299,16 @@ const DishModal: React.FC<DishModalProps> = (props) => {
                 <input
                   defaultValue={dishData.price}
                   type="number"
-                  pattern="/\d+/"
                   name="price"
+                  min="0"
                   required
+                  title="Digite o preço do prato"
                   onChange={(e) => {
-                    setPrice((e.target.value as unknown) as number);
+                    let priceInput = parseFloat(e.target.value);
+                    if (priceInput < 0) {
+                      e.target.value = '0';
+                    }
+                    setPrice(parseFloat(e.target.value));
                   }}
                 />
                 <br />

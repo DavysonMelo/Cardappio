@@ -53,7 +53,7 @@ const Dishes: React.FC<DishesProps> = ({ dish }) => {
         <IntlProvider locale="pt-BR" defaultLocale="pt-BR">
           <div>
             <h3> {dish.name} </h3>
-            <p> {dish.ingredients} </p>
+            <p> {dish.ingredients.join(', ')} </p>
             <FormattedNumber
               value={dish.price}
               style="currency"
