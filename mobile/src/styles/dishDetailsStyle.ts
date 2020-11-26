@@ -30,9 +30,10 @@ const styles = StyleSheet.create({
   },
 
   checkboxContainer: {
-    width: '95%',
-    justifyContent: 'space-between',
+    flex: 1,
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
     marginTop: 10,
   },
 

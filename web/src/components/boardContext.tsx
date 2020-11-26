@@ -11,6 +11,8 @@ interface IBoardContext {
   cardIndex: number;
   setDraggedListIdx(listIndex: number): void;
   draggedListIndex: number;
+  cardId: String;
+  getCardId(cardid: String): void;
 }
 
 const BoardContext = createContext<IBoardContext>({} as IBoardContext);
@@ -19,6 +21,11 @@ export const BoardProvider: React.FC = ({ children }) => {
   const [lists, setLists] = useState<orderList[]>([] as orderList[]);
   const [cardIndex, setCardIndex] = useState(Number);
   const [draggedListIndex, setDraggedListIndex] = useState(Number);
+  const [cardId, setCardId] = useState<String>('');
+
+  function getCardId(cardId: String) {
+    setCardId(cardId);
+  }
 
   function loadList(list: orderList[]) {
     setLists(list);
@@ -53,6 +60,8 @@ export const BoardProvider: React.FC = ({ children }) => {
         cardIndex,
         setDraggedListIdx,
         draggedListIndex,
+        cardId,
+        getCardId,
       }}
     >
       {children}

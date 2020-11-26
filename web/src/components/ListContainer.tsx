@@ -3,8 +3,9 @@ import { useDrop } from 'react-dnd';
 import OrderCard from '../components/OrderCard';
 import '../styles/components/listContainer.css';
 import ITEM_TYPE from '../types/item';
-import Order from '../types/order';
 import BoardContext from '../components/boardContext';
+import Order from '../types/order';
+import api from '../services/api';
 
 interface ListProps {
   index: number;
@@ -14,11 +15,27 @@ interface ListProps {
 const ListContainer: React.FC<ListProps> = (props) => {
   const list = props.orderList;
   const targetListIndex = props.index;
-  const { move, cardIndex, draggedListIndex } = useContext(BoardContext);
+  const { move, cardIndex, draggedListIndex, cardId } = useContext(
+    BoardContext
+  );
+
+  async function updateOrderStatus(tgtListIdx: number) {
+    if (tgtListIdx === 1) {
+      const res = await api.put(`orders/${cardId}`, {
+        status: 'preparando',
+      });
+    } else if (tgtListIdx === 2) {
+      const res = await api.put(`orders/${cardId}`, {
+        status: 'pronto',
+      });
+    }
+  }
+
   const [{ isOver }, drop] = useDrop({
     accept: ITEM_TYPE,
     drop: () => {
       move(cardIndex, draggedListIndex, targetListIndex);
+      updateOrderStatus(targetListIndex);
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -36,7 +53,7 @@ const ListContainer: React.FC<ListProps> = (props) => {
         list.map((item, index) => (
           <OrderCard
             className="orderCard"
-            key={item.id}
+            key={item._id}
             index={index}
             listIndex={props.index}
             item={item}

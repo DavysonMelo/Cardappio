@@ -1,12 +1,23 @@
 #card-container {
   width: 92%;
   height: max-content;
-
+  position: relative;
   background-color: #fff;
 
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  padding-bottom: 20px;
+}
+#card-content:after {
+  content: '';
+  background-image: url('../../assets/cropped.svg');
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 9px;
+  background-repeat: repeat-x;
+  right: 0;
 }
 
 #card-content {
@@ -32,6 +43,7 @@
 
 #order-row {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 

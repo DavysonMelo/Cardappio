@@ -4,25 +4,27 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 
 import styles from '../styles/quantityButton';
+interface QtyBtnProps {
+  qtyState: number;
+  qtySetState: Function;
+}
 
-export default function QuantityButton() {
-  const [quantity, setQuantity] = useState(1);
-
+export default function QuantityButton({ qtyState, qtySetState }: QtyBtnProps) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          if (quantity > 1) {
-            setQuantity(quantity - 1);
+          if (qtyState > 1) {
+            qtySetState(qtyState - 1);
           }
         }}
       >
         <AntDesign name="minuscircle" size={28} color="#FFF" />
       </TouchableOpacity>
       <View>
-        <Text>{quantity}</Text>
+        <Text>{qtyState}</Text>
       </View>
-      <TouchableOpacity onPress={() => setQuantity(quantity + 1)}>
+      <TouchableOpacity onPress={() => qtySetState(qtyState + 1)}>
         <AntDesign name="pluscircle" size={28} color="#FF6161" />
       </TouchableOpacity>
     </View>
