@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import ITEM_TYPE from '../types/item';
 
 import orderCropImage from '../assets/images/orderCrop.png';
 import '../styles/components/orderCard.css';
-import Order from '../types/order';
 import BoardContext from './boardContext';
+import Order from '../types/order';
 
 export interface OrderCardProps {
   className: string;
@@ -16,7 +16,7 @@ export interface OrderCardProps {
 }
 
 const OrderCard: React.FC<OrderCardProps> = (props) => {
-  const { setCardIdx, setDraggedListIdx } = useContext(BoardContext);
+  const { setCardIdx, setDraggedListIdx, getCardId } = useContext(BoardContext);
   const index = props.index;
   const listIndex = props.listIndex;
   const [{ isDragging }, drag] = useDrag({
@@ -27,6 +27,7 @@ const OrderCard: React.FC<OrderCardProps> = (props) => {
     begin: () => {
       setCardIdx(index);
       setDraggedListIdx(listIndex);
+      getCardId(props.item._id);
     },
   });
 
@@ -49,8 +50,16 @@ const OrderCard: React.FC<OrderCardProps> = (props) => {
 
         <div id="order-info-container">
           <div id="order-row">
-            <h5>Hamburguer</h5>
-            <span className="observations">({props.item.observations})</span>
+            {props.item.dishName.map((dish) => {
+              return <h5 key={dish}>{dish}</h5>;
+            })}
+            <p className="observations">
+              <strong>Observações: </strong>(
+              {props.item.observations.join(', ')})
+            </p>
+            <p className="observations">
+              <strong>Adicionais: </strong>({props.item.additional?.join(', ')})
+            </p>
           </div>
         </div>
       </div>

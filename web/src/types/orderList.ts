@@ -1,5 +1,5 @@
-import order from './order';
+import Order from './order';
 
 export default interface orderList {
-  orders: order[] | [];
+  orders: Order[] | [];
 }

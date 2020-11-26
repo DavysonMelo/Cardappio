@@ -15,6 +15,7 @@ import logoImg from '../assets/logoAdmin.svg';
 
 import { DishProps, CategoryProp } from '../types/dish';
 import api from '../services/api';
+import UserInterface from '../types/user';
 
 function Admin() {
   const { showAddModal, addVisible, editVisible, setDish } = useContext(
@@ -26,9 +27,19 @@ function Admin() {
   const [categories, setCategories] = useState<CategoryProp[]>(
     [] as CategoryProp[]
   );
+  const [user, setUser] = useState<UserInterface>({} as UserInterface);
   const [searchName, setSearchName] = useState('');
 
+  function getUser() {
+    const res = localStorage.getItem('user');
+    if (res) {
+      const parsedUser = JSON.parse(res);
+      setUser(parsedUser);
+    }
+  }
+
   useEffect(() => {
+    getUser();
     async function loadDishes() {
       try {
         const response = await api.get(`dishes`);
@@ -55,6 +66,7 @@ function Admin() {
       },
     }).then((willConfirm) => {
       if (willConfirm) {
+        localStorage.clear();
         history.push('/');
       }
     });
@@ -87,84 +99,101 @@ function Admin() {
 
   return (
     <>
-      <DishModal open={addVisible} title="Adicionar prato" button="Adicionar" />
-      <DishModal open={editVisible} title="Editar prato" button="Editar" />
+      {user && user.role === 'administrator' ? (
+        <>
+          <DishModal
+            open={addVisible}
+            title="Adicionar prato"
+            button="Adicionar"
+          />
+          <DishModal open={editVisible} title="Editar prato" button="Editar" />
 
-      <div id="page-admin">
-        <aside id="side-bar">
-          <div className="log-Out">
-            <button onClick={swalPopUp}>
-              <Icon name="log-out" size={35} color="#FFFF" />
-            </button>
-          </div>
+          <div id="page-admin">
+            <aside id="side-bar">
+              <div className="log-Out">
+                <button onClick={swalPopUp}>
+                  <Icon name="log-out" size={35} color="#FFFF" />
+                </button>
+              </div>
 
-          <div id="logo-Img">
-            <img id="img" src={logoImg} alt="Logo Cardappio" />
-          </div>
-        </aside>
+              <div id="logo-Img">
+                <img id="img" src={logoImg} alt="Logo Cardappio" />
+              </div>
+            </aside>
 
-        <main id="content-container">
-          <div id="search-categories-container">
-            <div id="select-categories">
-              <select
-                name="categories"
-                onChange={(e) => filterDishes(e.target.value)}
-                defaultValue="Selecione"
-              >
-                <option id="default-category" value="Selecione" disabled hidden>
-                  Selecione uma categoria
-                </option>
-                <option label="Todos" value="Todos">
-                  Todos
-                </option>
-                {categories.map((dish) => (
-                  <option
-                    key={dish.category}
-                    label={dish.category}
-                    value={dish.category}
+            <main id="content-container">
+              <div id="search-categories-container">
+                <div id="select-categories">
+                  <select
+                    name="categories"
+                    onChange={(e) => filterDishes(e.target.value)}
+                    defaultValue="Selecione"
+                  >
+                    <option
+                      id="default-category"
+                      value="Selecione"
+                      disabled
+                      hidden
+                    >
+                      Selecione uma categoria
+                    </option>
+                    <option label="Todos" value="Todos">
+                      Todos
+                    </option>
+                    {categories.map((dish) => (
+                      <option
+                        key={dish.category}
+                        label={dish.category}
+                        value={dish.category}
+                      />
+                    ))}
+                  </select>
+                </div>
+
+                <div id="search-dishes">
+                  <input
+                    type="text"
+                    placeholder="Pesquisa de item"
+                    onChange={(e) => setSearchName(e.target.value)}
                   />
-                ))}
-              </select>
-            </div>
 
-            <div id="search-dishes">
-              <input
-                type="text"
-                placeholder="Pesquisa de item"
-                onChange={(e) => setSearchName(e.target.value)}
-              />
-
-              <div id="click-search-input">
-                <button type="submit" onClick={searchDish}>
-                  <Icon name="search" size={20} color="#000" />
-                </button>
+                  <div id="click-search-input">
+                    <button type="submit" onClick={searchDish}>
+                      <Icon name="search" size={20} color="#000" />
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div id="dishes-container">
-            <div id="title-plus">
-              <h2>Cardápio</h2>
-              <div id="plus-button">
-                <button
-                  onClick={() => {
-                    setDish({} as DishProps);
-                    showAddModal();
-                  }}
-                >
-                  <Icon name="plus" size={33} color="#FFF" />
-                </button>
+              <div id="dishes-container">
+                <div id="title-plus">
+                  <h2>Cardápio</h2>
+                  <div id="plus-button">
+                    <button
+                      onClick={() => {
+                        setDish({} as DishProps);
+                        showAddModal();
+                      }}
+                    >
+                      <Icon name="plus" size={33} color="#FFF" />
+                    </button>
+                  </div>
+                </div>
+
+                <div id="dishes-list">
+                  {dishes.map((dish) => (
+                    <Dishes key={dish.id} dish={dish} />
+                  ))}
+                </div>
               </div>
-            </div>
-
-            <div id="dishes-list">
-              {dishes.map((dish) => (
-                <Dishes key={dish.id} dish={dish} />
-              ))}
-            </div>
+            </main>
           </div>
-        </main>
-      </div>
+        </>
+      ) : (
+        <div>
+          <>{() => history.push('/')}</>
+        </div>
+      )}
     </>
   );
 }
