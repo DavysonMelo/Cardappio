@@ -1,8 +1,9 @@
 export default interface Order {
-  id: string;
+  _id: string;
   number: number;
-  dishID: string;
+  dishName: string[];
   tableNumber: number;
-  observations: string;
+  observations: string[];
+  additional?: string[];
   status: string;
 }
