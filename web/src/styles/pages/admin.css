@@ -181,3 +181,15 @@
   resize: vertical;
   overflow: auto;
 }
+
+@media only screen and (max-width: 1024px) {
+  #side-bar {
+    width: 104px;
+  }
+  #side-bar img {
+    transform: rotate(-90deg);
+  }
+  #plus-button {
+    left: 33%;
+  }
+}
