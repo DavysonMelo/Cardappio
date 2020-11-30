@@ -48,6 +48,12 @@ export const BoardProvider: React.FC = ({ children }) => {
         draft[to].orders.splice(to, 0, dragged);
       })
     );
+
+    if (to === 2) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 10000);
+    }
   }
 
   return (
