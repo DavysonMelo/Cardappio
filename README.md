@@ -3,7 +3,7 @@
 </div>
 <hr>
 <br>
-<h2 align="center">🚧 Em construção... 🚧</h2>
+<h2 align="center">🚧 Em construção 🚧</h2>
 <br>
 <h2>💻 Sobre</h2>
 <div style="margin-left: 15px">
