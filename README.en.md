@@ -3,14 +3,14 @@
 </div>
 <hr>
 <br>
-<h2 align="center">🚧 Em construção 🚧</h2>
+<h2 align="center">🚧 Developing 🚧</h2>
 <br>
-<h2>💻 Sobre</h2>
+<h2>💻 About</h2>
 <div style="margin-left: 15px">
-  <p>O Cardappio se trata de um sistema de gerenciamento de pratos e pedidos de restaurantes que tem como objetivo principal facilitar a comunicação entre consumidor e o estabelecimento, facilitando o controle de pratos no cardápio e melhorando a forma como os pedidos em restaurantes funcionam.
+  <p>
+Cardappio is a system for managing dishes and ordering from restaurants whose main objective is to facilitate communication between the consumer and the establishment, facilitating the control of dishes on the menu and improving the way orders in restaurants work.
 
-O sistema se divide em duas partes, um aplicativo mobile e uma plataforma web, no aplicativo mobile os clientes tem acesso ao menu do estabelecimento e podem realizar seus pedidos, com base nas categorias e pratos disponíveis no cardápio.
-Já na interface web, as funcionalidades são divididas em duas páginas, admin e cozinha. A página de amin é voltada para os administradores do sistema, onde há total controle sobre quais pratos estão no cardápio e todos os dados relacionados a eles. A página da cozinha é onde os pedidos serão recebidos e gerenciados pela equipe de acordo com o status do prato.
+The system is divided into two parts: a mobile application and a web platform. In the mobile application, customers have access to the establishment's menu and can place their orders, based on the categories and dishes available on the menu. In the web interface, the functionalities are divided into two pages, admin and kitchen. The amin page is intended for system administrators, where there is complete control over which dishes are on the menu and all data related to them. The kitchen page is where orders will be received and managed by the team according to the status of the dish.
 
 </p>
 </div>
@@ -34,7 +34,7 @@ Já na interface web, as funcionalidades são divididas em duas páginas, admin 
   <img src="./assets/web-kitchen.png" width="45%" style="margin-top: 30px">
 </div>
 <br>
-<h2>🛠 Tecnologias</h2>
+<h2>🛠 Techs</h2>
 <br>
 <ul>
   <li><a>TypeScript</a></li>
@@ -49,7 +49,7 @@ Já na interface web, as funcionalidades são divididas em duas páginas, admin 
 
 <br>
 
-<h2>🤝 Contribuição</h2>
+<h2>🤝 Contribuition</h2>
 
 <table>
   <tr>
